@@ -81,14 +81,8 @@ body{
 }
 
 @keyframes popIn{
-    0%{
-        transform:scale(0.5);
-        opacity:0;
-    }
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
+    0%{transform:scale(0.5);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
 }
 
 /* 🧊 الصندوق */
@@ -102,13 +96,14 @@ body{
     -webkit-backdrop-filter: blur(25px);
 
     border:1px solid rgba(255,255,255,0.15);
-
     box-shadow:0 30px 80px rgba(0,0,0,0.65);
 
     position:relative;
     z-index:5;
 
     animation: floatBox 6s ease-in-out infinite;
+
+    text-align:center;
 }
 
 @keyframes floatBox{
@@ -118,12 +113,12 @@ body{
 
 /* 👋 الترحيب */
 .greeting{
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .hand{
     display:inline-block;
-    font-size:32px;
+    font-size:34px;
     animation: wave 1.5s infinite;
     transform-origin:70% 70%;
 }
@@ -136,36 +131,45 @@ body{
     100%{transform:rotate(0deg);}
 }
 
+/* 👇 تحسين القياسات */
 .greeting h2{
-    font-size:24px;
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight:700;
+    margin-top:5px;
 }
 
 .greeting span{
     color:#cbd5e1;
-    font-size:16px;
+    font-size: clamp(13px, 3vw, 16px);
 }
 
-/* النص */
+/* 🏷 العنوان */
 .box h1{
     margin-top:10px;
-    font-size:22px;
+    font-size: clamp(18px, 4.5vw, 22px);
+    font-weight:700;
 }
 
+/* 📝 النص */
 .box p{
     color:#cbd5e1;
     margin-top:6px;
+    font-size: clamp(13px, 3vw, 15px);
+    line-height:1.6;
 }
 
-/* زر الدخول */
+/* 🚀 زر الدخول */
 .system-btn{
     display:inline-block;
     margin-top:18px;
-    padding:14px 24px;
+    padding:12px 22px;
+    font-size: clamp(14px, 3vw, 16px);
     background: linear-gradient(135deg,#2563eb,#1d4ed8);
     color:white;
     text-decoration:none;
     border-radius:12px;
     transition:0.3s;
+    font-weight:600;
 }
 
 .system-btn:hover{
@@ -178,12 +182,8 @@ body{
         font-size:22px;
     }
 
-    .greeting h2{
-        font-size:20px;
-    }
-
-    .box h1{
-        font-size:19px;
+    .hand{
+        font-size:30px;
     }
 }
 
@@ -196,7 +196,7 @@ body{
 
 <a href="/" class="back-btn">⬅ رجوع</a>
 
-<!-- ✨ العنوان المتحرك -->
+<!-- ✨ العنوان -->
 <div style="position:absolute; top:70px; width:100%; text-align:center;">
     <div class="big-welcome">أهلاً أهلاً 👋✨</div>
 </div>
