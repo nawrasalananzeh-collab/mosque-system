@@ -121,11 +121,11 @@ body{
 
 /* 🧊 الصندوق */
 .box{
-    width:min(92vw,430px);
+    width:min(94vw,520px);
 
-    margin-top:110px;
+    margin-top:130px;
 
-    padding:28px;
+    padding:clamp(22px,4vw,40px);
 
     border-radius:24px;
 
@@ -181,29 +181,26 @@ body{
 
 .greeting h2{
     margin-top:8px;
-    font-size:24px;
+    font-size:clamp(22px,3vw,32px);
 }
 
 .greeting span{
     display:block;
     margin-top:4px;
-
     color:#cbd5e1;
-
-    font-size:15px;
+    font-size:clamp(15px,2vw,18px);
 }
 
-/* العنوان */
 .box h1{
-    font-size:24px;
+    font-size:clamp(24px,3.5vw,36px);
     margin-bottom:12px;
+    line-height:1.5;
 }
 
-/* النص */
 .box p{
     color:#cbd5e1;
-    font-size:15px;
-    line-height:1.8;
+    font-size:clamp(15px,2vw,18px);
+    line-height:1.9;
 }
 
 /* زر الدخول */
@@ -240,25 +237,14 @@ body{
 @media(max-width:600px){
 
     .big-welcome{
-        top:20px;
-        font-size:28px;
+        top:18px;
+        font-size:32px;
     }
 
     .box{
-        margin-top:95px;
+        margin-top:110px;
+        width:95vw;
         padding:22px;
-    }
-
-    .greeting h2{
-        font-size:20px;
-    }
-
-    .box h1{
-        font-size:20px;
-    }
-
-    .box p{
-        font-size:14px;
     }
 
     .system-btn{
