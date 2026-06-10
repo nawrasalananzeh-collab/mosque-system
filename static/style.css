@@ -16,17 +16,23 @@
     font-family:'Cairo',sans-serif;
 }
 
-/* BODY */
 body{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     background:#020617;
-    overflow:hidden;
     color:white;
-}
 
+    overflow-x:hidden;
+    padding:20px;
+}
+@media (max-width: 600px){
+    body{
+        align-items:flex-start;
+        padding-top:40px;
+    }
+}
 /* BACKGROUND */
 .bg{
     position:fixed;
@@ -47,7 +53,8 @@ body{
 
 /* LOGIN BOX */
 .box{
-    width:340px;
+   width: 90%;
+max-width: 420px;
     padding:28px;
     border-radius:18px;
 
