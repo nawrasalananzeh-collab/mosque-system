@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>صفحة الترحيب</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -13,7 +14,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Cairo', sans-serif;
+    font-family:'Cairo',sans-serif;
 }
 
 /* 🌌 الخلفية */
@@ -36,7 +37,7 @@ body{
         radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
         radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
         radial-gradient(circle at 50% 80%, #0f172a, transparent 60%);
-    animation: moveBG 12s ease-in-out infinite;
+    animation:moveBG 12s ease-in-out infinite;
 }
 
 @keyframes moveBG{
@@ -45,34 +46,60 @@ body{
     100%{transform:translate(0,0);}
 }
 
-/* ⬅ زر الرجوع */
+/* زر الرجوع */
 .back-btn{
     position:fixed;
     top:15px;
     left:15px;
-    padding:10px 14px;
+
+    padding:10px 15px;
+
     background:#ef4444;
     color:white;
+
     text-decoration:none;
     border-radius:10px;
-    z-index:20;
+
+    z-index:100;
+
+    transition:.3s;
+}
+
+.back-btn:hover{
+    background:#dc2626;
+    transform:scale(1.05);
 }
 
 /* ✨ أهلاً أهلاً */
 .big-welcome{
-    position:relative;
-    z-index:10;
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:18px;
+    position:fixed;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
 
-    background: linear-gradient(90deg,#60a5fa,#3b82f6,#22d3ee,#60a5fa);
+    font-size:clamp(30px,4vw,44px);
+    font-weight:800;
+
+    white-space:nowrap;
+
+    background:linear-gradient(
+        90deg,
+        #60a5fa,
+        #3b82f6,
+        #22d3ee,
+        #60a5fa
+    );
+
     background-size:300% 100%;
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 
-    animation: shineMove 3s linear infinite, popIn 0.8s ease-out;
+    animation:
+        shineMove 3s linear infinite,
+        popIn .8s ease-out;
+
+    z-index:100;
 }
 
 @keyframes shineMove{
@@ -81,109 +108,161 @@ body{
 }
 
 @keyframes popIn{
-    0%{transform:scale(0.5);opacity:0;}
-    100%{transform:scale(1);opacity:1;}
+    0%{
+        opacity:0;
+        transform:translateX(-50%) scale(.6);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateX(-50%) scale(1);
+    }
 }
 
 /* 🧊 الصندوق */
 .box{
-    width: min(92vw, 420px);
-    padding: clamp(18px, 4vw, 30px);
-    border-radius: 22px;
+    width:min(92vw,430px);
 
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    margin-top:110px;
 
-    border:1px solid rgba(255,255,255,0.15);
-    box-shadow:0 30px 80px rgba(0,0,0,0.65);
+    padding:28px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.07);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.65);
+
+    text-align:center;
 
     position:relative;
     z-index:5;
 
-    animation: floatBox 6s ease-in-out infinite;
-
-    text-align:center;
+    animation:floatBox 6s ease-in-out infinite;
 }
 
 @keyframes floatBox{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
 }
 
 /* 👋 الترحيب */
 .greeting{
-    margin-bottom:14px;
+    margin-bottom:18px;
 }
 
 .hand{
     display:inline-block;
-    font-size:34px;
-    animation: wave 1.5s infinite;
+    font-size:36px;
+
+    animation:wave 1.5s infinite;
+
     transform-origin:70% 70%;
 }
 
 @keyframes wave{
-    0%{transform:rotate(0deg);}
+    0%{transform:rotate(0);}
     25%{transform:rotate(20deg);}
     50%{transform:rotate(-15deg);}
     75%{transform:rotate(20deg);}
-    100%{transform:rotate(0deg);}
+    100%{transform:rotate(0);}
 }
 
-/* 👇 تحسين القياسات */
 .greeting h2{
-    font-size: clamp(18px, 4vw, 24px);
-    font-weight:700;
-    margin-top:5px;
+    margin-top:8px;
+    font-size:24px;
 }
 
 .greeting span{
+    display:block;
+    margin-top:4px;
+
     color:#cbd5e1;
-    font-size: clamp(13px, 3vw, 16px);
+
+    font-size:15px;
 }
 
-/* 🏷 العنوان */
+/* العنوان */
 .box h1{
-    margin-top:10px;
-    font-size: clamp(18px, 4.5vw, 22px);
-    font-weight:700;
+    font-size:24px;
+    margin-bottom:12px;
 }
 
-/* 📝 النص */
+/* النص */
 .box p{
     color:#cbd5e1;
-    margin-top:6px;
-    font-size: clamp(13px, 3vw, 15px);
-    line-height:1.6;
+    font-size:15px;
+    line-height:1.8;
 }
 
-/* 🚀 زر الدخول */
+/* زر الدخول */
 .system-btn{
     display:inline-block;
-    margin-top:18px;
-    padding:12px 22px;
-    font-size: clamp(14px, 3vw, 16px);
-    background: linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    margin-top:22px;
+
+    padding:13px 25px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
     color:white;
+
     text-decoration:none;
+
     border-radius:12px;
-    transition:0.3s;
-    font-weight:600;
+
+    font-size:15px;
+    font-weight:700;
+
+    transition:.3s;
 }
 
 .system-btn:hover{
     transform:translateY(-3px);
 }
 
-/* 📱 موبايل */
-@media (max-width:600px){
+/* 📱 الهاتف */
+@media(max-width:600px){
+
     .big-welcome{
-        font-size:22px;
+        top:20px;
+        font-size:28px;
     }
 
-    .hand{
-        font-size:30px;
+    .box{
+        margin-top:95px;
+        padding:22px;
+    }
+
+    .greeting h2{
+        font-size:20px;
+    }
+
+    .box h1{
+        font-size:20px;
+    }
+
+    .box p{
+        font-size:14px;
+    }
+
+    .system-btn{
+        width:100%;
     }
 }
 
@@ -196,25 +275,29 @@ body{
 
 <a href="/" class="back-btn">⬅ رجوع</a>
 
-<!-- ✨ العنوان -->
-<div style="position:absolute; top:70px; width:100%; text-align:center;">
-    <div class="big-welcome">أهلاً أهلاً 👋✨</div>
+<div class="big-welcome">
+    أهلاً أهلاً 👋✨
 </div>
 
 <div class="box">
 
     <div class="greeting">
         <div class="hand">👋</div>
-        <h2>مرحبا بك</h2>
+
+        <h2>مرحباً بك</h2>
+
         <span>{{ username }}</span>
     </div>
 
-    <h1>أهلاً بك في نظام إدارة المسجد 🕌</h1>
+    <h1>🕌 أهلاً بك في نظام إدارة المسجد</h1>
 
     <p>نظام إدارة المعلومات لمسجد سعد بن معاذ</p>
+
     <p>اضغط للدخول إلى لوحة التحكم</p>
 
-    <a class="system-btn" href="/dashboard">الدخول إلى النظام 🚀</a>
+    <a class="system-btn" href="/dashboard">
+        🚀 الدخول إلى النظام
+    </a>
 
 </div>
 
