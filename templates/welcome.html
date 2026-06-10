@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>صفحة الترحيب</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -16,15 +18,17 @@
 
 /* 🌌 الخلفية */
 body{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    overflow:hidden;
     background:#020617;
+    overflow:hidden;
+    padding:20px;
+    color:white;
 }
 
-/* خلفية متحركة */
+/* الخلفية المتحركة */
 .bg{
     position:absolute;
     inset:-20%;
@@ -41,50 +45,54 @@ body{
     100%{transform:translate(0,0);}
 }
 
-/* ⬅️ زر الرجوع */
+/* ⬅ زر الرجوع */
 .back-btn{
     position:fixed;
     top:15px;
     left:15px;
-    padding:10px 15px;
+    padding:10px 14px;
     background:#ef4444;
     color:white;
     text-decoration:none;
     border-radius:10px;
-    transition:0.3s;
     z-index:20;
 }
 
-.back-btn:hover{
-    background:#dc2626;
-    transform:scale(1.05);
-}
-
-/* 👋 الترحيب (مرفوع أكثر) */
-.greeting{
-    position:absolute;
-    top:-170px; /* 🔥 رفع إضافي */
-    left:50%;
-    transform:translateX(-50%);
+/* 🧊 الصندوق */
+.box{
+    width:90%;
+    max-width:420px;
     text-align:center;
-    color:white;
-    z-index:10;
+
+    padding:30px;
+    border-radius:22px;
+
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(25px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:0 30px 80px rgba(0,0,0,0.65);
+
+    position:relative;
+    z-index:5;
+
+    animation: floatBox 6s ease-in-out infinite;
 }
 
-.greeting h2{
-    font-size:30px;
-    margin-bottom:6px;
+@keyframes floatBox{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
 }
 
-.greeting span{
-    font-size:18px;
-    color:#cbd5e1;
+/* 👋 الترحيب */
+.greeting{
+    margin-bottom:15px;
 }
 
-/* ✋ اليد */
 .hand{
     display:inline-block;
-    font-size:30px;
+    font-size:32px;
     animation: wave 1.5s infinite;
     transform-origin:70% 70%;
 }
@@ -97,47 +105,31 @@ body{
     100%{transform:rotate(0deg);}
 }
 
-/* 🧊 الصندوق */
-.box{
-    width:460px;
-    text-align:center;
-
-    padding:45px;
-    border-radius:28px;
-
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(30px);
-
-    border:1px solid rgba(255,255,255,0.18);
-
-    box-shadow:0 30px 80px rgba(0,0,0,0.65);
-
-    position:relative;
-    z-index:5;
-
-    animation: floatBox 6s ease-in-out infinite;
+.greeting h2{
+    font-size:26px;
 }
 
-@keyframes floatBox{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
+.greeting span{
+    color:#cbd5e1;
+    font-size:16px;
 }
 
-/* نص داخل الصندوق */
+/* النص */
 .box h1{
-    color:white;
-    margin-bottom:10px;
+    margin-top:10px;
+    font-size:22px;
 }
 
 .box p{
     color:#cbd5e1;
-    margin-bottom:10px;
+    margin-top:6px;
 }
+
 /* زر الدخول */
 .system-btn{
     display:inline-block;
-    margin-top:20px;
-    padding:14px 28px;
+    margin-top:18px;
+    padding:14px 24px;
     background: linear-gradient(135deg,#2563eb,#1d4ed8);
     color:white;
     text-decoration:none;
@@ -146,7 +138,23 @@ body{
 }
 
 .system-btn:hover{
-    transform:translateY(-4px);
+    transform:translateY(-3px);
+}
+
+/* 📱 موبايل */
+@media (max-width:600px){
+    .box{
+        width:95%;
+        padding:22px;
+    }
+
+    .box h1{
+        font-size:20px;
+    }
+
+    .greeting h2{
+        font-size:22px;
+    }
 }
 
 </style>
@@ -160,19 +168,18 @@ body{
 
 <div class="box">
 
-    <!-- 👋 الترحيب (مرتفع أكثر الآن) -->
     <div class="greeting">
-        <div class="hand">👋</div>
+        <div class="hand">👋✨</div>
         <h2>مرحبا بك</h2>
         <span>{{ username }}</span>
     </div>
 
-    <h1>أهلاً بك في نظام</h1>
+    <h1>أهلاً بك في نظام إدارة المسجد 🕌</h1>
 
-    <p>إدارة المعلومات لمسجد سعد بن معاذ</p>
+    <p>نظام إدارة المعلومات لمسجد سعد بن معاذ</p>
     <p>اضغط للدخول إلى لوحة التحكم</p>
 
-    <a class="system-btn" href="/dashboard">الدخول إلى النظام</a>
+    <a class="system-btn" href="/dashboard">الدخول إلى النظام 🚀</a>
 
 </div>
 
