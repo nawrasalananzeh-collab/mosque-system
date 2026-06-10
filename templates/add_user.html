@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>إضافة مستخدم</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    background:rgba(255,255,255,0.06);
+    padding:25px;
+    border-radius:15px;
+    width:320px;
+    text-align:center;
+}
+
+input{
+    width:100%;
+    margin:10px 0;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+a{
+    display:block;
+    margin-top:10px;
+    color:#cbd5e1;
+    text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>➕ إضافة مستخدم</h2>
+
+<form method="POST" action="/add_user">
+
+<input type="text" name="username" placeholder="اسم المستخدم" required>
+
+<input type="password" name="password" placeholder="كلمة المرور" required>
+
+<button type="submit">حفظ</button>
+
+</form>
+
+<a href="/users">⬅ رجوع</a>
+
+</div>
+
+</body>
+</html>

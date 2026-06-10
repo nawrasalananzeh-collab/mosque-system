@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>إضافة معلم</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BASE ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#020617;
+    overflow:hidden;
+    color:white;
+}
+
+/* ================= FAST BACKGROUND ================= */
+.bg{
+    position:fixed;
+    inset:-70%;
+    background:
+        radial-gradient(circle at 10% 20%, #1e3a8a, transparent 35%),
+        radial-gradient(circle at 90% 30%, #2563eb, transparent 40%),
+        radial-gradient(circle at 50% 90%, #0f172a, transparent 55%);
+    animation:moveBG 5s linear infinite;
+    z-index:-2;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(120px,-90px);}
+    100%{transform:translate(0,0);}
+}
+
+/* ================= CARD ================= */
+.card{
+    width:520px;
+    padding:28px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(22px);
+
+    box-shadow:0 25px 60px rgba(0,0,0,0.5);
+}
+
+/* ================= TITLE ================= */
+h2{
+    text-align:center;
+    margin-bottom:18px;
+}
+
+/* ================= FORM ================= */
+form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+/* ================= INPUTS ================= */
+input{
+    padding:13px;
+    border:none;
+    border-radius:14px;
+    outline:none;
+
+    background:rgba(255,255,255,0.08);
+    color:white;
+
+    transition:0.25s;
+    border:1px solid transparent;
+}
+
+/* ✨ focus animation */
+input:focus{
+    transform:translateY(-2px) scale(1.02);
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.25);
+}
+
+/* ================= BUTTON ================= */
+button{
+    grid-column:span 2;
+
+    padding:14px;
+    border:none;
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+    position:relative;
+    overflow:hidden;
+}
+
+/* hover */
+button:hover{
+    transform:translateY(-4px) scale(1.03);
+}
+
+/* click feel */
+button:active{
+    transform:scale(0.96);
+}
+
+/* shine animation */
+button::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-130%;
+    width:130%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.35),transparent);
+    transition:0.6s;
+}
+
+button:hover::before{
+    left:120%;
+}
+
+/* ================= BACK BUTTON ================= */
+.back{
+    position:fixed;
+    top:18px;
+    left:18px;
+
+    padding:10px 14px;
+    border-radius:999px;
+
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+
+    color:white;
+    text-decoration:none;
+
+    transition:0.25s;
+}
+
+.back:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.15);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<a href="javascript:history.back()" class="back">⬅ رجوع</a>
+<div class="card">
+
+<h2>➕ إضافة معلم</h2>
+
+<form method="POST" action="/add_teacher">
+
+    <input name="name" placeholder="اسم المعلم" required>
+    <input name="phone" placeholder="الهاتف">
+
+    <input name="age" placeholder="العمر">
+    <input name="address" placeholder="العنوان">
+
+    <input name="specialization" placeholder="التخصص">
+    <input name="join_date" type="date">
+
+    <input name="students_count" placeholder="عدد الطلاب">
+    <input name="status" placeholder="الحالة">
+
+    <button type="submit">💾 حفظ المعلم</button>
+
+</form>
+
+</div>
+<script src="/static/transition.js"></script>
+</body>
+</html>

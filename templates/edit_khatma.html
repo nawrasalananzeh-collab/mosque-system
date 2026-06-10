@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تعديل الختمة</title>
+
+<style>
+body{
+    font-family: Arial;
+    padding:20px;
+    background:#f4f4f4;
+}
+
+form{
+    background:white;
+    padding:20px;
+    width:400px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+}
+button{
+    width:100%;
+    padding:10px;
+    background:#2ecc71;
+    border:none;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h2>✏️ تعديل الختمة</h2>
+
+<form method="POST">
+
+<input name="student_name" value="{{ khatma.student_name }}">
+<input name="khatma_date" value="{{ khatma.khatma_date }}">
+<input name="khatma_place" value="{{ khatma.khatma_place }}">
+<input name="sheikh_name" value="{{ khatma.sheikh_name }}">
+<input name="mosque_name" value="{{ khatma.mosque_name }}">
+<input name="city" value="{{ khatma.city }}">
+<input name="country" value="{{ khatma.country }}">
+<input name="age" value="{{ khatma.age }}">
+<input name="grade" value="{{ khatma.grade }}">
+<input name="khatma_type" value="{{ khatma.khatma_type }}">
+<input name="attendance_count" value="{{ khatma.attendance_count }}">
+
+<button type="submit">💾 حفظ</button>
+
+</form>
+
+</body>
+</html>

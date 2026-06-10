@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+   
+<meta charset="UTF-8">
+<title>إدارة المعلمين</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    background:#050816;
+    position:relative;
+}
+
+/* خلفية متحركة */
+.bg{
+    position:fixed;
+    inset:-20%;
+    z-index:-2;
+    background:
+        radial-gradient(circle,#2563eb 0%,transparent 25%),
+        radial-gradient(circle,#06b6d4 0%,transparent 30%),
+        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
+    background-size:40% 40%;
+    animation:bgMove 20s linear infinite;
+    filter:blur(100px);
+    opacity:.9;
+}
+
+@keyframes bgMove{
+    0%{
+        transform:translate(-5%,-5%) rotate(0deg);
+    }
+    50%{
+        transform:translate(5%,5%) rotate(180deg);
+    }
+    100%{
+        transform:translate(-5%,-5%) rotate(360deg);
+    }
+}
+
+/* كرات ضوئية متحركة */
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(80px);
+    z-index:-1;
+}
+
+body::before{
+    background:#2563eb;
+    top:-150px;
+    right:-150px;
+    animation:orb1 12s ease-in-out infinite;
+}
+
+body::after{
+    background:#06b6d4;
+    bottom:-150px;
+    left:-150px;
+    animation:orb2 14s ease-in-out infinite;
+}
+
+@keyframes orb1{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(-150px,120px);
+    }
+}
+
+@keyframes orb2{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(150px,-120px);
+    }
+}
+
+/* العنوان */
+.header{
+    text-align:center;
+    padding:22px;
+    font-size:30px;
+    font-weight:bold;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+    animation:floatBox 5s ease-in-out infinite;
+}
+
+/* الحاوية */
+.container{
+    width:95%;
+    margin:auto;
+    padding:25px;
+}
+
+/* حركة الصناديق */
+@keyframes floatBox{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+/* زر إضافة */
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:18px;
+}
+
+.glass-btn{
+    padding:12px 22px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+    animation:pulse 2s infinite;
+}
+
+.glass-btn:hover{
+    transform:translateY(-4px) scale(1.08);
+    box-shadow:0 0 25px #3b82f6;
+}
+
+@keyframes pulse{
+    0%,100%{
+        box-shadow:0 0 0 rgba(59,130,246,0);
+    }
+    50%{
+        box-shadow:0 0 20px rgba(59,130,246,.7);
+    }
+}
+
+/* الجدول */
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    border-radius:18px;
+    animation:tableShow .8s ease;
+}
+
+@keyframes tableShow{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+table{
+    width:100%;
+    min-width:1000px;
+    border-collapse:collapse;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    border-radius:18px;
+    overflow:hidden;
+}
+
+th{
+    background:rgba(255,255,255,0.12);
+}
+
+th,td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    white-space:nowrap;
+}
+
+tr{
+    transition:.3s;
+}
+
+tr:hover td{
+    background:rgba(59,130,246,.12);
+}
+
+/* أزرار العمليات */
+.action-btn{
+    padding:8px 14px;
+    border-radius:999px;
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    margin:2px;
+    display:inline-block;
+    transition:.3s;
+}
+
+.view{
+    background:rgba(59,130,246,.25);
+}
+
+.edit{
+    background:rgba(245,158,11,.25);
+}
+
+.delete{
+    background:rgba(239,68,68,.25);
+}
+
+
+.action-btn:hover{
+    transform:translateY(-2px) scale(1.05);
+}
+
+.view:hover{
+    box-shadow:0 0 18px #3b82f6;
+}
+
+.edit:hover{
+    box-shadow:0 0 18px #f59e0b;
+}
+
+.delete:hover{
+    box-shadow:0 0 18px #ef4444;
+}
+
+/* زر الرجوع */
+.back{
+    margin-top:20px;
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:999px;
+    background:rgba(71,85,105,.35);
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+    animation:floatBox 4s ease-in-out infinite;
+}
+
+.back:hover{
+    transform:translateY(-4px) scale(1.08);
+    box-shadow:0 0 20px rgba(148,163,184,.5);
+}
+
+/* شريط التمرير */
+::-webkit-scrollbar{
+    height:10px;
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="header">👨‍🏫 إدارة المعلمين</div>
+
+<div class="container">
+
+<div class="top-bar">
+    <a href="/add_teacher_page" class="glass-btn">➕ إضافة معلم</a>
+</div>
+
+<!-- 🔥 Wrapper مهم للعرض -->
+<div class="table-wrapper">
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>الاسم</th>
+    <th>الهاتف</th>
+    <th>التخصص</th>
+    <th>الانضمام</th>
+    <th>عدد الطلاب</th>
+    <th>الحالة</th>
+    <th>إجراءات</th>
+</tr>
+
+{% for t in teachers %}
+<tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.phone }}</td>
+    <td>{{ t.specialization }}</td>
+    <td>{{ t.join_date }}</td>
+    <td>{{ t.students_count }}</td>
+    <td>{{ t.status }}</td>
+
+    <td>
+        <a class="action-btn view" href="/teacher/{{ t.id }}">👁</a>
+        <a class="action-btn edit" href="/edit_teacher/{{ t.id }}">✏</a>
+        <a class="action-btn delete" href="/delete_teacher/{{ t.id }}">🗑</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<a href="/dashboard" class="back">⬅ رجوع</a>
+
+</div>
+<script src="/static/transition.js"></script>
+</body>
+<script>
+window.addEventListener("pageshow", function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+</html>

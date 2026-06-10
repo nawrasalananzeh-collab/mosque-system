@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>إضافة عمرة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    direction:rtl;
+    padding:30px;
+    color:white;
+    background: radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+                radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+                radial-gradient(circle at 50% 80%, #0f172a, #020617);
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:15px;
+    color:white;
+    text-decoration:none;
+}
+
+.box{
+    background:rgba(255,255,255,0.06);
+    padding:20px;
+    border-radius:15px;
+    backdrop-filter:blur(15px);
+}
+
+.row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    outline:none;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<a class="back" href="/umrah">⬅ رجوع</a>
+
+<div class="box">
+
+<h2>➕ إضافة عمرة</h2>
+
+<form method="POST">
+
+<div class="row">
+    <input name="description" placeholder="اسم العمرة" required>
+    <input name="umrah_year" placeholder="السنة" required>
+    <input name="umrah_date" type="date" required>
+</div>
+
+<button type="submit">حفظ</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

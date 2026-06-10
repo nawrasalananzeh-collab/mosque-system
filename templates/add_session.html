@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>إضافة جلسة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+    overflow:hidden;
+    background:#050816;
+}
+
+/* 🌈 BACKGROUND */
+.bg{
+    position:fixed;
+    inset:-50%;
+    z-index:-2;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(37,99,235,0.35), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(59,130,246,0.25), transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(14,165,233,0.25), transparent 55%);
+
+    filter:blur(40px);
+    animation:moveBG 10s ease-in-out infinite;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(40px,-30px) scale(1.1);}
+    100%{transform:translate(0,0) scale(1);}
+}
+
+/* ✨ light glow */
+.glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 60%);
+    animation:pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:0.4;}
+    50%{opacity:0.9;}
+}
+
+/* 🧊 BOX */
+.box{
+    width:380px;
+    padding:26px;
+
+    border-radius:20px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(18px);
+
+    text-align:center;
+
+    position:relative;
+    overflow:hidden;
+
+    animation:floatBox 6s ease-in-out infinite;
+}
+
+/* float */
+@keyframes floatBox{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+/* glow sweep */
+.box::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.15),transparent);
+    transition:0.6s;
+}
+
+.box:hover::before{
+    left:120%;
+}
+
+/* TITLE */
+h2{
+    margin-bottom:12px;
+}
+
+/* INPUTS */
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+    color:white;
+    outline:none;
+
+    transition:0.3s;
+}
+
+input:focus{
+    transform:scale(1.03);
+    background:rgba(255,255,255,0.12);
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(37,99,235,0.4);
+    color:white;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.02);
+    background:rgba(37,99,235,0.6);
+}
+
+/* BACK */
+.back{
+    display:block;
+    margin-top:12px;
+    color:white;
+    text-decoration:none;
+    opacity:0.8;
+    transition:0.3s;
+}
+
+.back:hover{
+    opacity:1;
+    transform:translateY(-3px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="glow"></div>
+
+<div class="box">
+
+<h2>➕ إضافة جلسة جديدة</h2>
+
+<form method="POST" action="/add_session">
+
+<input name="name" placeholder="اسم الجلسة" required>
+<input name="time" placeholder="الوقت" required>
+<input name="supervisor" placeholder="المشرف" required>
+
+<button type="submit">حفظ</button>
+
+</form>
+
+<a href="/sessions" class="back">⬅ الرجوع</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تعديل الجلسة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    background:rgba(255,255,255,0.06);
+    padding:25px;
+    border-radius:15px;
+    width:350px;
+}
+
+input{
+    width:100%;
+    margin:10px 0;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#f59e0b;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+a{
+    display:block;
+    text-align:center;
+    margin-top:10px;
+    color:#cbd5e1;
+    text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>✏️ تعديل الجلسة</h2>
+
+<form method="POST">
+
+<input name="name" value="{{ session.name }}" required>
+
+<input name="time" value="{{ session.session_time }}" required>
+
+<input name="supervisor" value="{{ session.supervisor }}" required>
+
+<button type="submit">حفظ التعديل</button>
+
+</form>
+
+<a href="/sessions">⬅ رجوع</a>
+
+</div>
+
+</body>
+</html>

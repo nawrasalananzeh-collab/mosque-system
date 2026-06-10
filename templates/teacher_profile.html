@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>ملف المعلم</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    background:#020617;
+    overflow-x:hidden;
+}
+
+/* الخلفية */
+.bg{
+    position:fixed;
+    inset:-40%;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, transparent 60%);
+    animation:moveBG 10s ease-in-out infinite;
+    z-index:-2;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(40px,-30px);}
+    100%{transform:translate(0,0);}
+}
+
+/* 🔥 أصغر */
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px;
+}
+
+/* كارد أصغر */
+.card{
+    width:100%;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+
+    animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-6px);}
+}
+
+/* صورة أصغر */
+.avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(37,99,235,0.3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:45px;
+    border:3px solid rgba(37,99,235,0.8);
+    margin:auto;
+}
+
+/* اسم */
+h2{
+    margin:10px 0;
+    font-size:22px;
+}
+
+/* 🔥 2 أعمدة بدل 3 */
+.info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:15px;
+    text-align:right;
+}
+
+/* كرت أصغر */
+.box{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:12px;
+    padding:10px;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform:translateY(-3px);
+    background:rgba(37,99,235,0.12);
+}
+
+.label{
+    color:#93c5fd;
+    font-size:12px;
+}
+
+.value{
+    font-size:14px;
+    margin-top:3px;
+}
+
+/* رجوع */
+.back{
+    position:fixed;
+    top:10px;
+    left:10px;
+    padding:7px 10px;
+    border-radius:8px;
+    background:rgba(71,85,105,0.35);
+    color:white;
+    text-decoration:none;
+    backdrop-filter:blur(10px);
+    font-size:13px;
+}
+
+.back:hover{
+    transform:translateY(-2px);
+}
+
+/* موبايل */
+@media(max-width:600px){
+    .info{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<a href="javascript:history.back()" class="back">⬅ رجوع</a>
+
+<div class="container">
+
+<div class="card">
+
+    <div class="avatar">👨‍🏫</div>
+
+    <h2>{{ teacher.name }}</h2>
+
+    <div class="info">
+
+        <div class="box">
+            <div class="label">📞 الهاتف</div>
+            <div class="value">{{ teacher.phone }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">🎂 العمر</div>
+            <div class="value">{{ teacher.age }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">🏠 العنوان</div>
+            <div class="value">{{ teacher.address }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">📚 التخصص</div>
+            <div class="value">{{ teacher.specialization }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">📅 الانضمام</div>
+            <div class="value">{{ teacher.join_date }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">👨‍🎓 الطلاب</div>
+            <div class="value">{{ teacher.students_count }}</div>
+        </div>
+
+        <div class="box">
+            <div class="label">⚡ الحالة</div>
+            <div class="value">{{ teacher.status }}</div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+<script src="/static/transition.js"></script>
+</body>
+</html>

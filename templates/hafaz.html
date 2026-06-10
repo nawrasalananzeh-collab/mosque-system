@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الحفاظ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    position:relative;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at center, rgba(59,130,246,.18), transparent 70%);
+    animation:pulseGlow 6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:-1;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes pulseGlow{
+    0%,100%{opacity:.4; transform:scale(1);}
+    50%{opacity:.8; transform:scale(1.1);}
+}
+
+/* الهيدر */
+.header{
+    text-align:center;
+    padding:20px;
+    font-size:28px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* رجوع */
+.back-fixed{
+    position:fixed;
+    top:15px;
+    left:15px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(71,85,105,.35);
+    color:white;
+    text-decoration:none;
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.12);
+    transition:.3s;
+    z-index:1000;
+}
+
+.back-fixed:hover{
+    transform:translateY(-3px) scale(1.05);
+    background:rgba(71,85,105,.5);
+}
+
+/* الحاوية */
+.container{
+    width:90%;
+    margin:auto;
+    padding:20px;
+}
+
+/* زر إضافة */
+.add-box{
+    display:flex;
+    justify-content:center;
+    margin:20px 0;
+}
+
+.btn{
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(59,130,246,0.25);
+    color:white;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,0.12);
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 0 20px rgba(59,130,246,.4);
+}
+
+/* أزرار العمليات */
+.action-btn{
+    padding:6px 10px;
+    border-radius:999px;
+    text-decoration:none;
+    color:white;
+    font-size:13px;
+    margin:2px;
+    display:inline-block;
+    transition:.3s;
+}
+
+.view{ background:rgba(59,130,246,.25); }
+.edit{ background:rgba(245,158,11,.25); }
+.delete{ background:rgba(239,68,68,.25); }
+
+.action-btn:hover{
+    transform:translateY(-2px) scale(1.05);
+}
+
+/* الجدول */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-radius:15px;
+    overflow:hidden;
+}
+
+th,td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+th{
+    background:rgba(255,255,255,0.08);
+}
+
+tr:hover{
+    background:rgba(59,130,246,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="/dashboard" class="back-fixed">⬅ رجوع</a>
+
+<div class="header">📖  إدارة الحفاظ لكتاب الله</div>
+
+<div class="container">
+
+<div class="add-box">
+    <a href="/add_hafaz" class="btn">➕  إضافة حافظ جديد لكتاب الله</a>
+</div>
+
+<table>
+<tr>
+    <th>اسم الحافظ لكتاب الله</th>
+    <th>عدد الاجزاء المحفوظه </th>
+    <th>ختم على يد الشيخ</th>
+    <th>تاريخ الختمة</th>
+    <th>مكان الختمه</th>
+    <th>الإجراءات</th>
+</tr>
+
+{% for h in hafaz %}
+<tr>
+    <td>{{ h.full_name }}</td>
+    <td>{{ h.juz_count }}</td>
+    <td>{{ h.sheikh }}</td>
+    <td>{{ h.khatma_date }}</td>
+    <td>{{ h.khatma_place }}</td>
+
+    <td>
+        <a href="/hafaz/{{ h.id }}" class="action-btn view">👁</a>
+        <a href="/edit_hafaz/{{ h.id }}" class="action-btn edit">✏</a>
+        <a href="/delete_hafaz/{{ h.id }}" class="action-btn delete">🗑</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>ملف العمرة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    direction:rtl;
+    padding:30px;
+    color:white;
+    background: radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+                radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+                radial-gradient(circle at 50% 80%, #0f172a, #020617);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    text-decoration:none;
+}
+
+select{
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin-bottom:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th,td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+th{
+    background:rgba(37,99,235,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h2>🕋 ملف العمرة</h2>
+    <a class="btn" href="/add_umrah">➕ إضافة عمرة</a>
+</div>
+
+<form method="GET">
+    <select name="year" onchange="this.form.submit()">
+        <option value="">كل السنوات</option>
+        {% for y in years %}
+            <option value="{{y.umrah_year}}" {% if selected_year==y.umrah_year %}selected{% endif %}>
+                {{y.umrah_year}}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+<table>
+<tr>
+    <th>اسم العمرة</th>
+    <th>السنة</th>
+    <th>التاريخ</th>
+</tr>
+
+{% for r in data %}
+<tr>
+    <td>{{r.description}}</td>
+    <td>{{r.umrah_year}}</td>
+    <td>{{r.umrah_date}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

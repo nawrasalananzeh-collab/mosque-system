@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تعديل اختبار</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* رجوع */
+.back{
+    position:fixed;
+    top:15px;
+    left:15px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(71,85,105,.35);
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.back:hover{
+    transform:scale(1.05);
+}
+
+/* الكرت */
+.card{
+    width:100%;
+    max-width:650px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* الفورم */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+input{
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.08);
+    color:white;
+    transition:.3s;
+}
+
+input:focus{
+    background:rgba(255,255,255,0.15);
+    transform:scale(1.02);
+}
+
+/* ملف */
+.file-box{
+    padding:10px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.06);
+    font-size:13px;
+}
+
+button{
+    padding:12px;
+    border:none;
+    border-radius:999px;
+    background:rgba(34,197,94,.3);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(34,197,94,.4);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="/tests" class="back">⬅ رجوع</a>
+
+<div class="card">
+
+<h1>✏️ تعديل اختبار</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <input name="student_name" value="{{ test.student_name }}" placeholder="اسم الطالب">
+    <input name="test_type" value="{{ test.test_type }}" placeholder="نوع الاختبار">
+    <input name="score" value="{{ test.score }}" placeholder="العلامة">
+    <input name="date" value="{{ test.date }}" placeholder="التاريخ">
+    <input name="notes" value="{{ test.notes }}" placeholder="ملاحظات">
+
+    <!-- 📄 رفع ملف PDF -->
+    <label>📄 تعديل ملف PDF</label>
+    <input type="file" name="pdf_file" accept=".pdf">
+
+    {% if test.pdf_file %}
+    <div class="file-box">
+        📎 الملف الحالي: {{ test.pdf_file }}
+        <br>
+        <a href="/view_test_file/{{ test.pdf_file }}" target="_blank" style="color:#60a5fa;">
+            👁 عرض الملف
+        </a>
+    </div>
+    {% endif %}
+
+    <button type="submit">💾 حفظ التعديلات</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

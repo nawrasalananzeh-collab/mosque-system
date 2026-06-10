@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إضافة اختبار</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* رجوع */
+.back{
+    position:fixed;
+    top:15px;
+    left:15px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(71,85,105,.35);
+    color:white;
+    text-decoration:none;
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.12);
+    transition:.3s;
+}
+
+.back:hover{
+    transform:scale(1.05);
+}
+
+/* 🔥 الكرت صار عريض */
+.container{
+    width:80%;
+    max-width:1000px;
+    margin:60px auto;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    text-align:center;
+}
+
+/* العنوان */
+h2{
+    margin-bottom:20px;
+}
+
+/* 🔥 تحويل الحقول لشكل صفوف (عرضي) */
+form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+}
+
+input{
+    width:48%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    background:rgba(255,255,255,0.08);
+    color:white;
+    outline:none;
+}
+
+input::placeholder{
+    color:#cbd5e1;
+}
+
+/* ملف PDF ياخذ عرض كامل */
+input[type="file"]{
+    width:100%;
+}
+
+/* زر */
+button{
+    width:100%;
+    padding:12px;
+    border-radius:999px;
+    border:none;
+    background:rgba(59,130,246,0.35);
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:10px;
+}
+
+button:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 20px rgba(59,130,246,.4);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="/tests" class="back">⬅ رجوع</a>
+
+<div class="container">
+
+<h2>📊 إضافة اختبار جديد</h2>
+
+<form method="POST" action="/add_test" enctype="multipart/form-data">
+
+<input name="student_name" placeholder="اسم الطالب">
+<input name="test_type" placeholder="نوع الاختبار">
+<input name="score" placeholder="العلامة">
+<input name="date" type="date">
+<input name="notes" placeholder="ملاحظات">
+
+<input type="file" name="pdf_file" accept="application/pdf">
+
+<button type="submit">حفظ الاختبار</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

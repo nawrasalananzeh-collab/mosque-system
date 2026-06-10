@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>إضافة طالب</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+/* 🌌 خلفية متحركة */
+body{
+    min-height:100vh;
+    color:white;
+    background:#020617;
+    overflow-x:hidden;
+}
+
+/* طبقات الخلفية */
+.bg{
+    position:fixed;
+    inset:-40%;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, transparent 60%);
+    animation:moveBG 12s ease-in-out infinite;
+    z-index:-2;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(60px,-40px);}
+    100%{transform:translate(0,0);}
+}
+
+/* 📌 الهيدر */
+.header{
+    text-align:center;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* 📦 الحاوية */
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px;
+}
+
+/* 🧊 الكارد */
+.card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:18px;
+    padding:25px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* 🧾 الفورم */
+form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+/* ✨ inputs زجاجية مع حركة */
+input{
+    padding:12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.06);
+    color:white;
+    outline:none;
+    transition:0.3s;
+    backdrop-filter:blur(10px);
+}
+
+/* Hover + Focus animation */
+input:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,0.09);
+}
+
+input:focus{
+    transform:translateY(-3px) scale(1.02);
+    background:rgba(37,99,235,0.15);
+    border-color:rgba(37,99,235,0.5);
+}
+
+/* 📌 section */
+.section{
+    grid-column:span 2;
+    color:#93c5fd;
+    font-weight:bold;
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* 🔘 زر حفظ */
+button{
+    grid-column:span 2;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+/* أنيميشن زر */
+button:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 15px 30px rgba(37,99,235,0.3);
+}
+
+/* ⬅ زر الرجوع */
+.back{
+    position:fixed;
+    top:15px;
+    left:15px;
+
+    padding:10px 15px;
+    background:rgba(71,85,105,0.35);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+
+    transition:0.3s;
+}
+
+.back:hover{
+    transform:translateY(-2px);
+    background:rgba(71,85,105,0.55);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="header">
+➕ إضافة طالب جديد
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<form method="POST" action="/add_student">
+
+    <input type="text" name="name" placeholder="اسم الطالب" required>
+    <input type="number" name="age" placeholder="العمر">
+
+    <input type="text" name="phone" placeholder="رقم الهاتف">
+    <input type="text" name="national_id" placeholder="الرقم الوطني">
+
+    <input type="text" name="sheikh_group" placeholder="مجموعة الشيخ">
+    <input type="text" name="address" placeholder="العنوان">
+
+    <input type="text" name="parent_phone" placeholder="رقم ولي الأمر">
+    <input type="text" name="image" placeholder="رابط الصورة">
+
+    <div class="section">📖 بيانات الحفظ</div>
+
+    <input type="number" name="juz_count" placeholder="عدد الأجزاء المحفوظة">
+    <input type="number" name="umrah_count" placeholder="عدد العمرات">
+
+    <input type="text" name="umrah_dates"
+           placeholder="تواريخ العمرات (مثال: 2025-01-01, 2025-02-10)"
+           style="grid-column:span 2;">
+
+    <button type="submit">💾 حفظ الطالب</button>
+
+</form>
+
+</div>
+
+</div>
+
+<a href="/students" class="back">
+⬅ الرجوع إلى صفحة عرض الطلبة
+</a>
+<script src="/static/transition.js"></script>
+</body>
+</html>

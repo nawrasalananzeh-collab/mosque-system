@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>الطلاب</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+
+    background:#050816;
+}
+
+/* 🌈 AURORA BACKGROUND */
+.bg{
+    position:fixed;
+    inset:-50%;
+    z-index:-2;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(37,99,235,0.35), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(59,130,246,0.25), transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(14,165,233,0.25), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(99,102,241,0.18), transparent 60%);
+
+    filter: blur(40px);
+    animation: moveBG 10s ease-in-out infinite;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(40px,-30px) scale(1.08);}
+    100%{transform:translate(0,0) scale(1);}
+}
+
+/* ✨ glow overlay */
+.glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%);
+    animation:pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:0.4;}
+    50%{opacity:0.9;}
+}
+
+/* HEADER */
+.header{
+    text-align:center;
+    padding:18px;
+    font-size:26px;
+    font-weight:bold;
+
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+/* container */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px;
+}
+
+/* ➕ BUTTON */
+.top-bar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:15px;
+}
+
+.add-btn{
+    padding:10px 16px;
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(15px);
+    color:white;
+    text-decoration:none;
+
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.add-btn:hover{
+    transform:translateY(-4px) scale(1.03);
+    background:rgba(37,99,235,0.25);
+}
+
+/* shimmer */
+.add-btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:120%;
+    height:100%;
+
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent);
+    transition:0.6s;
+}
+
+.add-btn:hover::before{
+    left:120%;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+
+    border-radius:16px;
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+th,td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    font-size:14px;
+}
+
+th{
+    background:rgba(255,255,255,0.08);
+}
+
+/* ROW HOVER */
+tr:hover{
+    background:rgba(255,255,255,0.06);
+}
+
+/* IMAGE */
+.img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+
+    border:2px solid rgba(255,255,255,0.4);
+
+    transition:0.3s;
+}
+
+.img:hover{
+    transform:scale(1.25) rotate(4deg);
+}
+
+/* BUTTONS */
+.btn{
+    padding:6px 10px;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    font-size:12px;
+
+    display:inline-block;
+
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+
+    transition:0.25s;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.05);
+}
+
+/* shimmer */
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:120%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent);
+    transition:0.6s;
+}
+
+.btn:hover::before{
+    left:120%;
+}
+
+/* colors */
+.edit{ background:rgba(245,158,11,0.25); }
+.delete{ background:rgba(239,68,68,0.25); }
+.profile{ background:rgba(59,130,246,0.25); }
+
+/* BACK */
+.back{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 14px;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+    color:white;
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.back:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,0.15);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="glow"></div>
+
+<div class="header">👨‍🎓 إدارة الطلاب</div>
+
+<div class="container">
+
+<div class="top-bar">
+    <a href="/add_student_page" class="add-btn">➕ إضافة طالب</a>
+</div>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>الصورة</th>
+    <th>الاسم</th>
+    <th>العمر</th>
+    <th>الهاتف</th>
+    <th>المجموعة</th>
+    <th>إجراءات</th>
+</tr>
+
+{% for s in students %}
+<tr>
+    <td>{{ s.id }}</td>
+
+    <td>
+        {% if s.image %}
+            <img class="img" src="{{ s.image }}">
+        {% else %}
+            —
+        {% endif %}
+    </td>
+
+    <td>{{ s.name }}</td>
+    <td>{{ s.age }}</td>
+    <td>{{ s.phone }}</td>
+    <td>{{ s.sheikh_group }}</td>
+
+    <td>
+        <a class="btn edit" href="/edit_student/{{ s.id }}">✏️</a>
+        <a class="btn delete" href="/delete_student/{{ s.id }}">🗑</a>
+        <a class="btn profile" href="/student/{{ s.id }}">👤</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+<a href="/dashboard" class="back">⬅ رجوع</a>
+
+</div>
+
+</body>
+</html>

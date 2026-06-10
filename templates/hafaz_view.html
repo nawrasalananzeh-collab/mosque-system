@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ملف الحافظ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== الأساس ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    background:#050816;
+    position:relative;
+}
+
+/* ===== خلفية متحركة نفس الداشبورد ===== */
+body{
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at center, rgba(59,130,246,.18), transparent 70%);
+    animation:pulseGlow 6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:-1;
+}
+
+/* ===== animations ===== */
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes pulseGlow{
+    0%,100%{opacity:.4; transform:scale(1);}
+    50%{opacity:.8; transform:scale(1.1);}
+}
+
+/* ===== الكرت الرئيسي ===== */
+.card{
+    width:60%;
+    margin:70px auto;
+    padding:35px;
+
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:25px;
+
+    backdrop-filter:blur(20px);
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.12);
+
+    text-align:center;
+
+    animation:floatBox 6s ease-in-out infinite;
+}
+
+/* ===== حركة الكرت ===== */
+@keyframes floatBox{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+}
+
+/* ===== العنوان ===== */
+h2{
+    font-size:30px;
+    margin-bottom:25px;
+    color:#dbeafe;
+}
+
+/* ===== المعلومات ===== */
+.info{
+    text-align:right;
+    line-height:2.4;
+    font-size:18px;
+}
+
+.info p{
+    padding:10px 15px;
+    margin:10px 0;
+
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.info p:hover{
+    background:rgba(59,130,246,0.15);
+    transform:translateX(-5px);
+}
+
+/* ===== زر الرجوع ===== */
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 22px;
+
+    border-radius:999px;
+    text-decoration:none;
+    color:white;
+
+    background:rgba(59,130,246,0.25);
+    border:1px solid rgba(255,255,255,0.12);
+
+    transition:.3s;
+    font-weight:700;
+}
+
+/* ===== hover احترافي ===== */
+.btn:hover{
+    transform:translateY(-5px) scale(1.05);
+    background:rgba(59,130,246,0.4);
+    box-shadow:0 0 20px rgba(59,130,246,.4);
+}
+
+/* ===== glow خفيف للكرت ===== */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:25px;
+    background:radial-gradient(circle at top, rgba(59,130,246,.15), transparent 60%);
+    z-index:-1;
+}
+
+/* responsive */
+@media(max-width:900px){
+    .card{
+        width:90%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>📖 ملف الحافظ</h2>
+
+    <div class="info">
+        <p>👤 اسم الحافظ لكتاب الله: {{ hafaz.full_name }}</p>
+        <p>📚 عدد الأجزاء المحفوظة: {{ hafaz.juz_count }}</p>
+        <p>🕌 ختم على يد الشيخ : {{ hafaz.sheikh }}</p>
+        <p>📅 تاريخ الختمة: {{ hafaz.khatma_date }}</p>
+        <p>📍 مكان الختمة: {{ hafaz.khatma_place }}</p>
+    </div>
+
+    <a href="/hafaz" class="btn">⬅ رجوع</a>
+
+</div>
+
+</body>
+</html>

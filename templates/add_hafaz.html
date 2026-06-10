@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إضافة حافظ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    background:#050816;
+    position:relative;
+    overflow:hidden;
+}
+
+/* خلفية داشبورد */
+body{
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at center, rgba(59,130,246,.18), transparent 70%);
+    animation:pulseGlow 6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:-1;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes pulseGlow{
+    0%,100%{opacity:.4; transform:scale(1);}
+    50%{opacity:.8; transform:scale(1.1);}
+}
+
+/* زر رجوع */
+.back{
+    position:fixed;
+    top:15px;
+    left:15px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(71,85,105,.35);
+    color:white;
+    text-decoration:none;
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.12);
+    transition:.3s;
+}
+
+.back:hover{
+    transform:translateY(-3px) scale(1.05);
+}
+
+/* صندوق الفورم */
+.box{
+    width:400px;
+    margin:70px auto;
+    padding:30px;
+    border-radius:20px;
+
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:0 25px 60px rgba(0,0,0,0.55);
+    animation:floatBox 6s ease-in-out infinite;
+}
+
+@keyframes floatBox{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+/* الحقول */
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.12);
+    color:white;
+}
+
+input::placeholder{
+    color:#cbd5e1;
+}
+
+/* زر */
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 25px rgba(37,99,235,0.45);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="/hafaz" class="back">⬅ رجوع</a>
+
+<div class="box">
+
+<h2 style="text-align:center;margin-bottom:15px;">📖 إضافة حافظ</h2>
+
+<form method="POST">
+
+    <input type="text" name="full_name" placeholder="اسم الحافظ الرباعي" required>
+
+    <input type="number" name="juz_count" placeholder="عدد الأجزاء المحفوظة" required>
+
+    <input type="text" name="sheikh" placeholder="ختم على يد الشيخ؟">
+
+    <input type="date" name="khatma_date" placeholder="تاريخ الختمة">
+
+    <input type="text" name="khatma_place" placeholder="مكان الختمة">
+
+    <button type="submit">➕ حفظ</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

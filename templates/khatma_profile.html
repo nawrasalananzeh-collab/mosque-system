@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>عرض الختمة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo', sans-serif;
+}
+
+/* الخلفية */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background: radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+                radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+                radial-gradient(circle at 50% 80%, #0f172a, #020617);
+}
+
+/* الصندوق */
+.container{
+    width:850px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:15px;
+    padding:20px;
+    color:white;
+}
+
+/* العنوان */
+h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+/* جدول مضبوط */
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+/* كل صف طبيعي */
+tr{
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+/* خانات */
+td{
+    padding:10px;
+    text-align:right;
+}
+
+/* اسم الحقل */
+td:first-child{
+    width:30%;
+    font-weight:bold;
+    color:#cbd5e1;
+}
+
+/* زر */
+a{
+    display:block;
+    margin-top:15px;
+    text-align:center;
+    padding:10px;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📄 تفاصيل الختمة</h2>
+
+    <table>
+        <tr><td>الاسم</td><td>{{ khatma.student_name }}</td></tr>
+        <tr><td>التاريخ</td><td>{{ khatma.khatma_date }}</td></tr>
+        <tr><td>المكان</td><td>{{ khatma.khatma_place }}</td></tr>
+        <tr><td>الشيخ</td><td>{{ khatma.sheikh_name }}</td></tr>
+        <tr><td>المسجد</td><td>{{ khatma.mosque_name }}</td></tr>
+        <tr><td>المدينة</td><td>{{ khatma.city }}</td></tr>
+        <tr><td>الدولة</td><td>{{ khatma.country }}</td></tr>
+        <tr><td>العمر</td><td>{{ khatma.age }}</td></tr>
+        <tr><td>الصف</td><td>{{ khatma.grade }}</td></tr>
+        <tr><td>النوع</td><td>{{ khatma.khatma_type }}</td></tr>
+        <tr><td>الحضور</td><td>{{ khatma.attendance_count }}</td></tr>
+    </table>
+
+    <a href="/khatmat">⬅ رجوع</a>
+
+</div>
+
+</body>
+</html>

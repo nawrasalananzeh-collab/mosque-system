@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تعديل المستخدم</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+/* خلفية */
+body{
+    min-height:100vh;
+    color:white;
+    background:#020617;
+    overflow:hidden;
+}
+
+/* خلفية متحركة */
+.bg{
+    position:fixed;
+    inset:-50%;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, transparent 60%);
+    animation:moveBG 12s ease-in-out infinite;
+    z-index:-3;
+}
+
+@keyframes moveBG{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(60px,-40px);}
+    100%{transform:translate(0,0);}
+}
+
+/* ضوء ناعم */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at center,
+    rgba(59,130,246,0.15),transparent 70%);
+    animation:pulse 6s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:.4;}
+    50%{opacity:.8;}
+}
+
+/* زر الرجوع */
+.back{
+    position:fixed;
+    top:20px;
+    left:20px;
+
+    padding:12px 18px;
+
+    background:rgba(71,85,105,.35);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+
+    color:white;
+    text-decoration:none;
+
+    transition:.3s;
+}
+
+.back:hover{
+    transform:translateY(-3px);
+    background:rgba(71,85,105,.55);
+}
+
+/* الحاوية */
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* الصندوق */
+.box{
+    width:450px;
+
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:25px;
+
+    padding:30px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+/* العنوان */
+h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* الحقول */
+input{
+    width:100%;
+
+    padding:14px;
+    margin-bottom:14px;
+
+    border:none;
+    outline:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.3s;
+}
+
+input:focus{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,.12);
+}
+
+input::placeholder{
+    color:#cbd5e1;
+}
+
+/* الزر */
+button{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<a href="/users" class="back">
+⬅ الرجوع لإدارة المستخدمين
+</a>
+
+<div class="wrapper">
+
+    <div class="box">
+
+        <h2>✏️ تعديل المستخدم</h2>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="username"
+                value="{{ user.username }}"
+                placeholder="اسم المستخدم"
+                required>
+
+            <input
+                type="text"
+                name="password"
+                value="{{ user.password }}"
+                placeholder="كلمة المرور"
+                required>
+
+            <button type="submit">
+                💾 حفظ التعديل
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

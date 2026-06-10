@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الواجهة الرئيسية</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    position:relative;
+    background:#050816;
+}
+
+/* خلفية أفخم وأهدأ */
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    position:relative;
+
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+}
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(59,130,246,.18),
+        transparent 70%
+    );
+
+    animation:pulseGlow 6s ease-in-out infinite;
+
+    pointer-events:none;
+    z-index:-1;
+}
+@keyframes bgMove{
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+@keyframes pulseGlow{
+    0%,100%{
+        opacity:.4;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:.8;
+        transform:scale(1.1);
+    }
+}
+
+
+.header{
+    text-align:center;
+    padding:15px;
+    font-size:26px;
+    font-weight:700;
+
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 2px 20px rgba(0,0,0,.25);
+}
+
+.container{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    padding:30px;
+    gap:25px;
+}
+
+.column{
+    width:280px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.btn{
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+
+    text-decoration:none;
+    color:#fff;
+
+    padding:12px 16px;   /* 👈 صغّرنا الارتفاع والعرض */
+    min-height:42px;     /* 👈 ثبات شكل الزر */
+
+    font-size:16px;
+    font-weight:700;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.07);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.10);
+
+    transition:all .3s ease;
+}
+
+
+.btn:hover{
+    transform:translateY(-5px) scale(1.03);
+
+    background:rgba(255,255,255,.13);
+
+    border-color:rgba(96,165,250,.5);
+
+    box-shadow:
+        0 12px 28px rgba(59,130,246,.25),
+        0 0 18px rgba(59,130,246,.15);
+}
+
+.column{
+    width:320px;        /* 👈 أوسع شوي */
+    display:flex;
+    flex-direction:column;
+    gap:10px;           /* 👈 تقليل المسافة بين الأزرار */
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-150%;
+    width:70%;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.25),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+    transition:.7s;
+}
+
+.btn:hover::before{
+    left:170%;
+}
+.btn:hover{
+    transform:scale(1.06);
+    background:rgba(255,255,255,.14);
+
+    box-shadow:
+        0 12px 30px rgba(59,130,246,.35),
+        0 0 20px rgba(59,130,246,.25);
+}
+
+
+.btn:hover::before{
+    left:150%;
+}
+
+.btn:active{
+    transform:translateY(-2px) scale(1.02);
+}
+
+.center{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:600px;
+}
+
+.welcome-box{
+    width:100%;
+    max-width:750px;
+
+    text-align:center;
+
+    padding:60px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.12);
+
+    transition:.4s;
+
+    animation:floatBox 6s ease-in-out infinite;
+}
+
+.welcome-box:hover{
+    transform:translateY(-10px) scale(1.02);
+}
+
+@keyframes floatBox{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.welcome-box h2{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.welcome-box p{
+    font-size:22px;
+    opacity:.95;
+}
+.welcome-box h2{
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.welcome-box p{
+    font-size:24px;
+    color:#dbeafe;
+}
+.back{
+    background:rgba(59,130,246,.25);
+}
+
+.back:hover{
+    background:rgba(59,130,246,.40);
+}
+
+.logout{
+    background:rgba(220,38,38,.25);
+}
+
+.logout:hover{
+    background:rgba(220,38,38,.40);
+}
+
+@media(max-width:1200px){
+
+    .container{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .column{
+        width:100%;
+        max-width:500px;
+    }
+
+    .center{
+        min-height:auto;
+        width:100%;
+    }
+
+    .welcome-box{
+        max-width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    🕌 الواجهة الرئيسية
+</div>
+
+<div class="container">
+
+    <div class="column">
+        <a href="/students" class="btn">👨‍🎓 إدارة الطلاب</a>
+        <a href="/users_pin" class="btn">👤 المستخدمون</a>
+        <a href="/teachers" class="btn">👨‍🏫 المعلمون</a>
+        <a href="/sessions" class="btn">📅 الجلسات</a>
+        <a href="#" class="btn">📊 التقارير</a>
+        <a href="/hafaz" class="btn">📖 الحفاظ</a>
+        <a href="/khatmat" class="btn">
+    🕋 الختمات
+</a>
+        <a href="/tests" class="btn">📝 الاختبارات</a>
+    </div>
+
+    <div class="center">
+        <div class="welcome-box">
+            <h2>👋 أهلاً بك {{ username }}</h2>
+            <p>نظام إدارة مسجد سعد بن معاذ</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <a href="#" class="btn">🌙 الوضع الليلي</a>
+        <a href="#" class="btn">🛡️ الصلاحيات</a>
+        <a href="#" class="btn">💰 التبرعات</a>
+        <a href="#" class="btn">🏆 المسابقات</a>
+    <a href="/umrah" class="btn umrah">
+    🕋 العمرات
+</a>
+        <a href="#" class="btn">⚙️ الإعدادات</a>
+
+        <a href="/dashboard" class="btn back">🏠 الداشبورد</a>
+        <a href="/logout" class="btn logout">🚪 تسجيل الخروج</a>
+    </div>
+
+</div>
+
+</body>
+</html>

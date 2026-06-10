@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الختمات</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
+        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
+        radial-gradient(circle at 50% 80%, #0f172a, #020617);
+
+    background-size:200% 200%;
+    animation:bgMove 10s ease-in-out infinite;
+    color:white;
+    padding:30px;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.title{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.btn{
+    text-decoration:none;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    transition:.3s;
+}
+
+.btn:hover{
+    background:rgba(37,99,235,.4);
+    transform:translateY(-2px);
+}
+
+.table-box{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:20px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:rgba(37,99,235,.4);
+    padding:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.action{
+    text-decoration:none;
+    color:white;
+    padding:6px 12px;
+    border-radius:8px;
+    margin:2px;
+    display:inline-block;
+}
+
+.view{
+    background:#2563eb;
+}
+
+.edit{
+    background:#16a34a;
+}
+
+.delete{
+    background:#dc2626;
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1 class="title">🕋 الختمات</h1>
+
+    <div>
+        <a href="/add_khatma" class="btn">➕ إضافة ختمة</a>
+        <a href="/dashboard" class="btn">⬅ رجوع</a>
+    </div>
+
+</div>
+
+<div class="table-box">
+
+{% if khatmat %}
+
+<table>
+
+<tr>
+    <th>#</th>
+    <th>اسم الطالب</th>
+    <th>تاريخ الختمة</th>
+    <th>مكان الختمة</th>
+    <th>الشيخ</th>
+    <th>التحكم</th>
+</tr>
+
+{% for k in khatmat %}
+
+<tr>
+
+<td>{{ k.id }}</td>
+
+<td>{{ k.student_name }}</td>
+
+<td>{{ k.khatma_date }}</td>
+
+<td>{{ k.khatma_place }}</td>
+
+<td>{{ k.sheikh_name }}</td>
+
+<td>
+
+<a class="action view"
+href="/khatma/{{ k.id }}">
+عرض
+</a>
+
+<a class="action edit"
+href="/edit_khatma/{{ k.id }}">
+تعديل
+</a>
+
+<a class="action delete"
+href="/delete_khatma/{{ k.id }}">
+حذف
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<div class="empty">
+🕋 لا توجد ختمات مسجلة حالياً
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
