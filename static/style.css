@@ -78,7 +78,25 @@ max-width: 420px;
 h2{
     margin-bottom:10px;
 }
+.back-btn{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
 
+.back-btn:hover{
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
 /* INPUT */
 input{
     width:100%;

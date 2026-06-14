@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>إضافة ختمة</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -16,236 +17,125 @@
 }
 
 body{
+    background:#050816;
+    color:white;
     min-height:100vh;
-
-    background:
-        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
-        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
-        radial-gradient(circle at 50% 80%, #0f172a, #020617);
-
-    background-size:200% 200%;
-    animation:bgMove 10s ease-in-out infinite;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
     padding:30px;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+.container{
+    max-width:900px;
+    margin:auto;
 }
 
-.box{
-    width:100%;
-    max-width:1200px;
-
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(25px);
-
-    border:1px solid rgba(255,255,255,.15);
-
+.card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
     border-radius:25px;
-
-    padding:35px;
-
-    box-shadow:0 25px 60px rgba(0,0,0,.45);
-
-    color:white;
+    padding:30px;
 }
 
-.title{
+h1{
     text-align:center;
-    font-size:32px;
     margin-bottom:25px;
 }
 
-.form-grid{
+.grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
 
-.input-group{
-    display:flex;
-    flex-direction:column;
-}
-
-label{
-    margin-bottom:6px;
-    font-weight:bold;
-}
-
-input,
-select{
+input,select{
+    width:100%;
     padding:12px;
     border:none;
     border-radius:12px;
-    background:rgba(255,255,255,.10);
+    background:rgba(255,255,255,.08);
     color:white;
-    outline:none;
 }
 
-option{
-    color:black;
-}
-
-.full{
-    grid-column:1 / -1;
-}
-
-.buttons{
-    display:flex;
-    gap:10px;
-    margin-top:25px;
+input::placeholder{
+    color:#cbd5e1;
 }
 
 .btn{
-    flex:1;
-    text-decoration:none;
-    text-align:center;
-
+    width:100%;
+    margin-top:20px;
     padding:14px;
-
     border:none;
     border-radius:12px;
-
-    cursor:pointer;
-
+    background:#2563eb;
     color:white;
     font-size:16px;
-    font-weight:bold;
-
-    transition:.3s;
-}
-
-.save{
-    background:#2563eb;
-}
-
-.save:hover{
-    background:#1d4ed8;
+    font-weight:700;
+    cursor:pointer;
 }
 
 .back{
-    background:#475569;
+    display:inline-block;
+    margin-top:20px;
+    color:white;
+    text-decoration:none;
 }
 
-.back:hover{
-    background:#334155;
+@media(max-width:700px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
 }
+
 </style>
 </head>
-
 <body>
 
-<div class="box">
+<div class="container">
 
-<h2 class="title">🕋 إضافة ختمة جديدة</h2>
+    <div class="card">
 
-<form method="POST" enctype="multipart/form-data">
+        <h1>🕋 إضافة ختمة جديدة</h1>
 
-<div class="form-grid">
+        <form method="POST">
 
-<div class="input-group">
-<label>اسم الطالب</label>
-<input type="text" name="student_name" required>
-</div>
+            <div class="grid">
 
-<div class="input-group">
-<label>اسم الشيخ</label>
-<input type="text" name="sheikh_name">
-</div>
+                <input type="text" name="student_name" placeholder="اسم الطالب" required>
 
-<div class="input-group">
-<label>تاريخ الختمة</label>
-<input type="date" name="khatma_date">
-</div>
+                <input type="date" name="khatma_date" required>
 
-<div class="input-group">
-<label>مكان الختمة</label>
-<input type="text" name="khatma_place">
-</div>
+                <input type="text" name="khatma_place" placeholder="مكان الختمة">
 
-<div class="input-group">
-<label>اسم المسجد</label>
-<input type="text" name="mosque_name">
-</div>
+                <input type="text" name="sheikh_name" placeholder="اسم الشيخ">
 
-<div class="input-group">
-<label>العمر عند الختمة</label>
-<input type="number" name="age">
-</div>
+                <input type="text" name="mosque_name" placeholder="اسم المسجد">
 
-<div class="input-group">
-<label>المدينة</label>
-<input type="text" name="city">
-</div>
+                <input type="text" name="city" placeholder="المدينة">
 
-<div class="input-group">
-<label>الدولة</label>
-<input type="text" name="country">
-</div>
+                <input type="text" name="country" placeholder="الدولة">
 
-<div class="input-group">
-<label>التقدير</label>
-<select name="grade">
-<option value="">اختر</option>
-<option>ممتاز</option>
-<option>جيد جداً</option>
-<option>جيد</option>
-<option>مقبول</option>
-</select>
-</div>
+                <input type="number" name="age" placeholder="العمر">
 
-<div class="input-group">
-<label>نوع الختمة</label>
-<input type="text" name="khatma_type" placeholder="حفص / ورش">
-</div>
+                <input type="text" name="grade" placeholder="الصف الدراسي">
 
-<div class="input-group">
-<label>عدد الحضور</label>
-<input type="number" name="attendance_count">
-</div>
+                <input type="text" name="khatma_type" placeholder="نوع الختمة">
 
-<div class="input-group">
-<label>صورة شهادة الختمة</label>
-<input type="file" name="certificate_image" accept="image/*">
-</div>
+                <input type="number" name="attendance_count" placeholder="عدد أيام الحضور">
 
-<div class="input-group">
-<label>صورة الطالب</label>
-<input type="file" name="student_image" accept="image/*">
-</div>
+            </div>
 
-<div class="input-group">
-<label>فيديو الختمة</label>
-<input type="file" name="video_file" accept="video/*">
-</div>
+            <button type="submit" class="btn">
+                💾 حفظ الختمة
+            </button>
 
-<div class="input-group">
-<label>ملف PDF للشهادة</label>
-<input type="file" name="pdf_file" accept=".pdf">
-</div>
+        </form>
 
-</div>
+    </div>
 
-<div class="buttons">
-
-<button type="submit" class="btn save">
-💾 حفظ الختمة
-</button>
-
-<a href="/khatmat" class="btn back">
-⬅ رجوع
-</a>
-
-</div>
-
-</form>
+    <a href="/khatmat" class="back">
+        ← العودة للختمات
+    </a>
 
 </div>
 

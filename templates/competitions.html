@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>المسابقات</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    background:#050816;
+    min-height:100vh;
+    color:white;
+    padding:30px;
+    overflow-x:hidden;
+}
+
+.bg{
+    position:fixed;
+    inset:-20%;
+    z-index:-2;
+    background:
+        radial-gradient(circle,#2563eb 0%,transparent 25%),
+        radial-gradient(circle,#06b6d4 0%,transparent 30%),
+        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
+    background-size:40% 40%;
+    animation:bgMove 20s linear infinite;
+    filter:blur(100px);
+    opacity:.9;
+}
+
+@keyframes bgMove{
+    0%{transform:translate(-5%,-5%) rotate(0deg);}
+    50%{transform:translate(5%,5%) rotate(180deg);}
+    100%{transform:translate(-5%,-5%) rotate(360deg);}
+}
+
+.title{
+    text-align:center;
+    font-size:38px;
+    font-weight:800;
+    margin-bottom:20px;
+
+    background:linear-gradient(90deg,#60a5fa,#22d3ee,#3b82f6);
+    background-size:300%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.top-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.back-btn{
+    text-decoration:none;
+    text-align:center;
+
+    padding:14px 22px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.15);
+}
+
+.add-btn{
+    text-decoration:none;
+    text-align:center;
+
+    padding:14px 22px;
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    color:white;
+
+    font-size:16px;
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.add-btn:hover{
+    transform:translateY(-4px);
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:24px;
+
+    padding:20px;
+
+    transition:.3s;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#60a5fa;
+    font-size:24px;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.8;
+    min-height:70px;
+}
+
+.actions{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+
+    padding:12px;
+    border-radius:12px;
+
+    color:white;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.view{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.edit{
+    background:linear-gradient(135deg,#06b6d4,#0891b2);
+}
+
+.delete{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+.empty{
+    text-align:center;
+    padding:50px;
+    color:#cbd5e1;
+    font-size:20px;
+}
+
+@media(max-width:700px){
+
+    body{
+        padding:15px;
+    }
+
+    .top-buttons{
+        flex-direction:column;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .btn,
+    .back-btn,
+    .add-btn{
+        width:100%;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<h1 class="title">🏆 إدارة المسابقات</h1>
+
+<div class="top-buttons">
+
+    <a href="/dashboard" class="back-btn">
+        ↩️ الرجوع للوحة التحكم
+    </a>
+
+    <a href="/add_competition" class="add-btn">
+        ➕ إضافة مسابقة جديدة
+    </a>
+
+</div>
+
+<div class="container">
+
+{% for c in competitions %}
+
+<div class="card">
+
+    <h3>{{ c['title'] }}</h3>
+
+    <p>
+        {{ c['description'] }}
+    </p>
+
+    <div class="actions">
+
+        <a href="/competition/{{ c['id'] }}" class="btn view">
+            👁️ عرض
+        </a>
+
+        <a href="/edit_competition/{{ c['id'] }}" class="btn edit">
+            ✏️ تعديل
+        </a>
+
+        <a href="/delete_competition/{{ c['id'] }}"
+           class="btn delete"
+           onclick="return confirm('هل تريد حذف المسابقة؟')">
+            🗑️ حذف
+        </a>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="empty">
+    لا توجد مسابقات مضافة حالياً
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سيارات التوصيل</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    position:relative;
+    background:#050816;
+}
+
+/* الخلفية */
+.bg{
+    position:fixed;
+    inset:-20%;
+    z-index:-2;
+
+    background:
+        radial-gradient(circle,#2563eb 0%,transparent 25%),
+        radial-gradient(circle,#06b6d4 0%,transparent 30%),
+        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
+
+    background-size:40% 40%;
+    animation:bgMove 20s linear infinite;
+
+    filter:blur(100px);
+    opacity:.9;
+}
+
+@keyframes bgMove{
+    0%{transform:translate(-5%,-5%) rotate(0deg);}
+    50%{transform:translate(5%,5%) rotate(180deg);}
+    100%{transform:translate(-5%,-5%) rotate(360deg);}
+}
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(80px);
+    z-index:-1;
+}
+
+body::before{
+    background:#2563eb;
+    top:-150px;
+    right:-150px;
+    animation:orb1 12s ease-in-out infinite;
+}
+
+body::after{
+    background:#06b6d4;
+    bottom:-150px;
+    left:-150px;
+    animation:orb2 14s ease-in-out infinite;
+}
+
+@keyframes orb1{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-150px,120px);}
+}
+
+@keyframes orb2{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(150px,-120px);}
+}
+
+/* الهيدر */
+.header{
+    width:fit-content;
+    margin:20px auto;
+    padding:14px 35px;
+    font-size:30px;
+    font-weight:800;
+    border-radius:18px;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    text-align:center;
+}
+
+/* ===== MENU ===== */
+.menu{
+    position:absolute;
+    top:20px;
+    right:20px;
+    z-index:100;
+}
+
+.dots-btn{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+
+    color:white;
+    font-size:26px;
+    font-weight:900;
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.dots-btn:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.15);
+}
+
+.dropdown{
+    display:none;
+    position:absolute;
+    top:55px;
+    right:0;
+
+    width:190px;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:14px;
+
+    overflow:hidden;
+}
+
+.dropdown a{
+    display:block;
+    padding:12px;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.dropdown a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* form */
+.form-box{
+    width:90%;
+    max-width:900px;
+    margin:20px auto;
+
+    padding:20px;
+
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.12);
+}
+
+.form-box form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+}
+
+.form-box input{
+    padding:10px;
+    border-radius:12px;
+    border:none;
+    outline:none;
+    min-width:160px;
+}
+
+.form-box button{
+    padding:10px 20px;
+    border:none;
+    border-radius:12px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.form-box button:hover{
+    background:#16a34a;
+    transform:translateY(-2px);
+}
+
+/* table */
+.table-box{
+    width:95%;
+    margin:20px auto;
+    overflow-x:auto;
+
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.12);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+th{
+    background:rgba(255,255,255,.08);
+}
+
+tr:hover{
+    background:rgba(255,255,255,.05);
+}
+
+.del{
+    background:#ef4444;
+    color:white;
+    padding:6px 12px;
+    border-radius:10px;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.del:hover{
+    background:#b91c1c;
+    transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<!-- MENU -->
+<div class="menu">
+    <button class="dots-btn" onclick="toggleMenu()">⋯</button>
+
+    <div id="dropdown" class="dropdown">
+        <a href="/welcome">🏠 لوحة التحكم</a>
+        <a href="#" onclick="searchCar()">🔍 بحث عن سيارة</a>
+        <a href="#" onclick="filterDriver()">🚗 فلترة حسب السائق</a>
+    </div>
+</div>
+
+<div class="header">🚐 سيارات التوصيل</div>
+
+<div class="form-box">
+    <form method="POST" action="/add_transport_car">
+        <input name="car_name" placeholder="اسم السيارة" required>
+        <input name="driver_name" placeholder="اسم السائق" required>
+        <input name="driver_phone" placeholder="رقم السائق" required>
+        <input name="seats" type="number" placeholder="عدد المقاعد" required>
+        <input name="notes" placeholder="ملاحظات">
+        <button type="submit">➕ إضافة</button>
+    </form>
+</div>
+
+<div class="table-box">
+<table>
+    <tr>
+        <th>🚗 السيارة</th>
+        <th>👨‍✈️ السائق</th>
+        <th>📞 الهاتف</th>
+        <th>💺 المقاعد</th>
+        <th>📝 ملاحظات</th>
+        <th>🗑️ حذف</th>
+    </tr>
+
+    {% for car in cars %}
+    <tr>
+        <td>{{ car["car_name"] }}</td>
+        <td>{{ car["driver_name"] }}</td>
+        <td>{{ car["driver_phone"] }}</td>
+        <td>{{ car["seats"] }}</td>
+        <td>{{ car["notes"] }}</td>
+        <td>
+            <a class="del" href="/delete_transport_car/{{ car['id'] }}">حذف</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+
+<script>
+function toggleMenu(){
+    const d = document.getElementById("dropdown");
+    d.style.display = (d.style.display === "block") ? "none" : "block";
+}
+
+function searchCar(){
+    let name = prompt("اكتب اسم السيارة:");
+    if(!name) return;
+
+    document.querySelectorAll("table tr").forEach((row, i)=>{
+        if(i === 0) return;
+        row.style.display = row.innerText.includes(name) ? "" : "none";
+    });
+}
+
+function filterDriver(){
+    let driver = prompt("اكتب اسم السائق:");
+    if(!driver) return;
+
+    document.querySelectorAll("table tr").forEach((row, i)=>{
+        if(i === 0) return;
+        row.style.display = row.innerText.includes(driver) ? "" : "none";
+    });
+}
+</script>
+
+</body>
+</html>

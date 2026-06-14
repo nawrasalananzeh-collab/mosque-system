@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الختمات</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -16,22 +17,15 @@
 }
 
 body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
-        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
-        radial-gradient(circle at 50% 80%, #0f172a, #020617);
-
-    background-size:200% 200%;
-    animation:bgMove 10s ease-in-out infinite;
+    background:#050816;
     color:white;
+    min-height:100vh;
     padding:30px;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+.container{
+    max-width:1400px;
+    margin:auto;
 }
 
 .header{
@@ -43,30 +37,23 @@ body{
 
 .title{
     font-size:32px;
-    font-weight:bold;
+    font-weight:800;
 }
 
-.btn{
-    text-decoration:none;
+.add-btn{
+    background:#2563eb;
     color:white;
+    text-decoration:none;
     padding:12px 20px;
     border-radius:12px;
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.15);
-    transition:.3s;
-}
-
-.btn:hover{
-    background:rgba(37,99,235,.4);
-    transform:translateY(-2px);
+    font-weight:700;
 }
 
 .table-box{
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,.05);
     border-radius:20px;
-    padding:20px;
-    overflow-x:auto;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);
 }
 
 table{
@@ -75,119 +62,97 @@ table{
 }
 
 th{
-    background:rgba(37,99,235,.4);
-    padding:14px;
+    background:rgba(37,99,235,.3);
+    padding:15px;
 }
 
 td{
-    padding:12px;
+    padding:15px;
     text-align:center;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-top:1px solid rgba(255,255,255,.08);
 }
 
-.action{
+.btn{
+    padding:8px 14px;
+    border-radius:10px;
     text-decoration:none;
     color:white;
-    padding:6px 12px;
-    border-radius:8px;
-    margin:2px;
-    display:inline-block;
+    font-size:14px;
 }
 
 .view{
-    background:#2563eb;
-}
-
-.edit{
-    background:#16a34a;
+    background:#059669;
 }
 
 .delete{
     background:#dc2626;
 }
 
-.empty{
-    text-align:center;
-    padding:40px;
-    font-size:22px;
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:white;
+    text-decoration:none;
 }
+
 </style>
 </head>
-
 <body>
 
-<div class="header">
+<div class="container">
 
-    <h1 class="title">🕋 الختمات</h1>
+    <div class="header">
+        <div class="title">🕋 الختمات</div>
 
-    <div>
-        <a href="/add_khatma" class="btn">➕ إضافة ختمة</a>
-        <a href="/dashboard" class="btn">⬅ رجوع</a>
+        <a href="/add_khatma" class="add-btn">
+            ➕ إضافة ختمة
+        </a>
     </div>
 
-</div>
+    <div class="table-box">
 
-<div class="table-box">
+        <table>
 
-{% if khatmat %}
+            <tr>
+                <th>الطالب</th>
+                <th>تاريخ الختمة</th>
+                <th>الشيخ</th>
+                <th>المسجد</th>
+                <th>نوع الختمة</th>
+                <th>الإجراءات</th>
+            </tr>
 
-<table>
+            {% for k in khatmat %}
+            <tr>
 
-<tr>
-    <th>#</th>
-    <th>اسم الطالب</th>
-    <th>تاريخ الختمة</th>
-    <th>مكان الختمة</th>
-    <th>الشيخ</th>
-    <th>التحكم</th>
-</tr>
+                <td>{{ k.student_name }}</td>
+                <td>{{ k.khatma_date }}</td>
+                <td>{{ k.sheikh_name }}</td>
+                <td>{{ k.mosque_name }}</td>
+                <td>{{ k.khatma_type }}</td>
 
-{% for k in khatmat %}
+                <td>
 
-<tr>
+                    <a href="/khatma/{{ k.id }}" class="btn view">
+                        عرض
+                    </a>
 
-<td>{{ k.id }}</td>
+                    <a href="/delete_khatma/{{ k.id }}" class="btn delete">
+                        حذف
+                    </a>
 
-<td>{{ k.student_name }}</td>
+                </td>
 
-<td>{{ k.khatma_date }}</td>
+            </tr>
+            {% endfor %}
 
-<td>{{ k.khatma_place }}</td>
+        </table>
 
-<td>{{ k.sheikh_name }}</td>
+    </div>
 
-<td>
-
-<a class="action view"
-href="/khatma/{{ k.id }}">
-عرض
-</a>
-
-<a class="action edit"
-href="/edit_khatma/{{ k.id }}">
-تعديل
-</a>
-
-<a class="action delete"
-href="/delete_khatma/{{ k.id }}">
-حذف
-</a>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
-
-{% else %}
-
-<div class="empty">
-🕋 لا توجد ختمات مسجلة حالياً
-</div>
-
-{% endif %}
+    <a href="/dashboard" class="back">
+        ← العودة للواجهة الرئيسية
+    </a>
 
 </div>
 

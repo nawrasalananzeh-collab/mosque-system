@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
 
-<title>صفحة الترحيب</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
+/* RESET */
 *{
     margin:0;
     padding:0;
@@ -18,131 +18,123 @@
 }
 
 body{
-    min-height:100dvh;
+    min-height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
-    align-items:flex-start;
-    background:#020617;
-    overflow-x:hidden;
-    overflow-y:auto;
-    padding:20px;
+    align-items:center;
+    background:#050816;
     color:white;
     position:relative;
 }
 
-/* الخلفية المتحركة */
+/* 🌌 خلفية احترافية (نفس نظام المعلمين) */
 .bg{
-    position:absolute;
+    position:fixed;
     inset:-20%;
+    z-index:-2;
     background:
-        radial-gradient(circle at 20% 20%, #1e3a8a, transparent 40%),
-        radial-gradient(circle at 80% 30%, #2563eb, transparent 45%),
-        radial-gradient(circle at 50% 80%, #0f172a, transparent 60%);
-    animation:moveBG 12s ease-in-out infinite;
+        radial-gradient(circle,#2563eb 0%,transparent 25%),
+        radial-gradient(circle,#06b6d4 0%,transparent 30%),
+        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
+    background-size:40% 40%;
+    animation:bgMove 20s linear infinite;
+    filter:blur(100px);
+    opacity:.9;
 }
 
-@keyframes moveBG{
-    0%{transform:translate(0,0);}
-    50%{transform:translate(40px,-30px);}
-    100%{transform:translate(0,0);}
+@keyframes bgMove{
+    0%{transform:translate(-5%,-5%) rotate(0deg);}
+    50%{transform:translate(5%,5%) rotate(180deg);}
+    100%{transform:translate(-5%,-5%) rotate(360deg);}
 }
 
-/* زر الرجوع */
-.back-btn{
+/* كرات ضوئية */
+body::before,
+body::after{
+    content:"";
     position:fixed;
-    top:15px;
-    left:15px;
-    padding:10px 15px;
-    background:#ef4444;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    z-index:100;
-    transition:.3s;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(80px);
+    z-index:-1;
 }
 
-.back-btn:hover{
-    background:#dc2626;
-    transform:scale(1.05);
+body::before{
+    background:#2563eb;
+    top:-150px;
+    right:-150px;
+    animation:orb1 12s ease-in-out infinite;
 }
 
-/* أهلاً أهلاً */
-.big-welcome{
-    position:fixed;
-    top:25px;
+body::after{
+    background:#06b6d4;
+    bottom:-150px;
+    left:-150px;
+    animation:orb2 14s ease-in-out infinite;
+}
+
+@keyframes orb1{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-150px,120px);}
+}
+
+@keyframes orb2{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(150px,-120px);}
+}
+
+/* 🔥 العنوان العلوي */
+.top-title{
+    position:absolute;
+    top:22px;
     left:50%;
     transform:translateX(-50%);
-    font-size:clamp(30px,4vw,44px);
+    font-size:clamp(22px,3vw,34px);
     font-weight:800;
-    white-space:nowrap;
 
-    background:linear-gradient(
-        90deg,
-        #60a5fa,
-        #3b82f6,
-        #22d3ee,
-        #60a5fa
-    );
-
+    background:linear-gradient(90deg,#60a5fa,#22d3ee,#3b82f6,#60a5fa);
     background-size:300% 100%;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 
-    animation:
-        shineMove 3s linear infinite,
-        popIn .8s ease-out;
-
-    z-index:100;
+    animation:shine 4s linear infinite;
 }
 
-@keyframes shineMove{
-    0%{background-position:0% 50%;}
-    100%{background-position:300% 50%;}
+@keyframes shine{
+    0%{background-position:0%;}
+    100%{background-position:300%;}
 }
 
-@keyframes popIn{
-    0%{
-        opacity:0;
-        transform:translateX(-50%) scale(.6);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(-50%) scale(1);
-    }
-}
-
-/* الصندوق */
-.box{
-    width:min(92vw,430px);
-    margin-top:110px;
-    padding:28px;
-    border-radius:24px;
-    background:rgba(255,255,255,.07);
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-    border:1px solid rgba(255,255,255,.15);
-    box-shadow:0 30px 80px rgba(0,0,0,.65);
-    text-align:center;
+/* 🧊 الكرت */
+.card{
     position:relative;
-    z-index:5;
-    animation:floatBox 6s ease-in-out infinite;
+    z-index:2;
+    width:min(92%,520px);
+    padding:40px;
+    border-radius:26px;
+
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+
+    text-align:center;
+
+    animation:float 6s ease-in-out infinite;
 }
 
-@keyframes floatBox{
+@keyframes float{
     0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
+    50%{transform:translateY(-12px);}
 }
 
-/* الترحيب */
-.greeting{
-    margin-bottom:18px;
-}
-
-.hand{
-    display:inline-block;
-    font-size:36px;
+/* 👋 */
+.wave{
+    font-size:48px;
     animation:wave 1.5s infinite;
-    transform-origin:70% 70%;
 }
 
 @keyframes wave{
@@ -153,112 +145,71 @@ body{
     100%{transform:rotate(0);}
 }
 
-.greeting h2{
-    margin-top:8px;
-    font-size:24px;
+/* النصوص */
+h1{
+    font-size:28px;
+    margin-top:10px;
 }
 
-.greeting span{
-    display:block;
-    margin-top:4px;
+p{
+    margin-top:10px;
     color:#cbd5e1;
-    font-size:15px;
+    font-size:16px;
 }
 
-.box h1{
-    font-size:24px;
-    margin-bottom:12px;
-    line-height:1.6;
+/* الأزرار */
+.buttons{
+    margin-top:25px;
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
 }
 
-.box p{
-    color:#cbd5e1;
-    font-size:15px;
-    line-height:1.8;
-}
-
-.system-btn{
+.btn{
+    padding:12px 18px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
     display:inline-block;
-    margin-top:22px;
-    padding:13px 25px;
+}
+
+/* دخول */
+.enter{
     background:linear-gradient(135deg,#2563eb,#1d4ed8);
     color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:700;
-    transition:.3s;
 }
 
-.system-btn:hover{
+.enter:hover{
     transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(37,99,235,0.4);
 }
 
-/* 📱 الهاتف */
-@media (max-width:600px){
+/* رجوع */
+.back{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+}
 
-    body{
-        padding:12px;
-        align-items:flex-start;
+.back:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.15);
+}
+
+/* 📱 موبايل */
+@media(max-width:600px){
+    .card{
+        padding:25px;
     }
 
-    .big-welcome{
-        top:18px;
-        font-size:24px;
+    h1{font-size:22px;}
+    p{font-size:14px;}
+
+    .btn{
         width:100%;
         text-align:center;
-    }
-
-    .box{
-        width:95%;
-        max-width:360px;
-        margin-top:95px;
-        padding:20px 16px;
-        border-radius:18px;
-    }
-
-    .hand{
-        font-size:30px;
-    }
-
-    .greeting{
-        margin-bottom:12px;
-    }
-
-    .greeting h2{
-        font-size:20px;
-        margin-top:6px;
-    }
-
-    .greeting span{
-        font-size:14px;
-    }
-
-    .box h1{
-        font-size:18px;
-        line-height:1.6;
-        margin-bottom:10px;
-    }
-
-    .box p{
-        font-size:14px;
-        line-height:1.8;
-        margin-bottom:4px;
-    }
-
-    .system-btn{
-        width:100%;
-        padding:14px;
-        font-size:15px;
-        margin-top:16px;
-        border-radius:10px;
-    }
-
-    .back-btn{
-        top:10px;
-        left:10px;
-        padding:8px 10px;
-        font-size:12px;
     }
 }
 
@@ -269,31 +220,19 @@ body{
 
 <div class="bg"></div>
 
-<a href="/" class="back-btn">⬅ رجوع</a>
+<div class="top-title">يا أهلاً ويا سهلاً</div>
 
-<div class="big-welcome">
-    أهلاً أهلاً 👋✨
-</div>
+<div class="card">
 
-<div class="box">
+    <div class="wave">👋</div>
 
-    <div class="greeting">
-        <div class="hand">👋</div>
+    <h1>مرحباً بك {{ username }}</h1>
+    <p>في نظام إدارة المعلوات لمسجد سعد بن معاذ</p>
 
-        <h2>مرحباً بك</h2>
-
-        <span>{{ username }}</span>
+    <div class="buttons">
+        <a href="/dashboard" class="btn enter">تفضل بالدخول الى النظام </a>
+        <a href="/" class="btn back">العودة لتسجيل الدخول</a>
     </div>
-
-    <h1>🕌 أهلاً بك في نظام إدارة المسجد</h1>
-
-    <p>نظام إدارة المعلومات لمسجد سعد بن معاذ</p>
-
-    <p>اضغط للدخول إلى لوحة التحكم</p>
-
-    <a class="system-btn" href="/dashboard">
-        🚀 الدخول إلى النظام
-    </a>
 
 </div>
 

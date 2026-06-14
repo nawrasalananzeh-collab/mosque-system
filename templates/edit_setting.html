@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>✏️ تعديل الإعداد</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background: radial-gradient(circle,#1f4037,#99f2c8);
+    color:white;
+}
+
+.container{
+    width:400px;
+    margin:80px auto;
+    background: rgba(0,0,0,0.4);
+    padding:25px;
+    border-radius:15px;
+    backdrop-filter: blur(8px);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background: linear-gradient(45deg,#ff512f,#dd2476);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>✏️ تعديل إعداد المسجد</h2>
+
+<form method="POST">
+    <input name="mosque_name" value="{{ setting['mosque_name'] }}">
+    <input name="mosque_logo" value="{{ setting['mosque_logo'] }}">
+    <input name="mosque_address" value="{{ setting['mosque_address'] }}">
+    <input name="mosque_phone" value="{{ setting['mosque_phone'] }}">
+
+    <button type="submit">💾 حفظ التعديل</button>
+</form>
+
+</div>
+
+</body>
+</html>

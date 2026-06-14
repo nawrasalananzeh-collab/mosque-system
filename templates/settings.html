@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>⚙️ إعدادات المسجد</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:30px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* كرت زجاجي */
+.card{
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius:15px;
+    padding:20px;
+    margin:15px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* الفورم */
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
+}
+
+/* زر خرافي */
+button{
+    background: linear-gradient(45deg,#00c6ff,#0072ff);
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #00c6ff;
+}
+
+/* أزرار صغيرة */
+a{
+    display:inline-block;
+    margin:5px;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:white;
+}
+
+.edit{background:#28a745;}
+.delete{background:#dc3545;}
+
+.logo{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚙️ إعدادات المسجد</h1>
+
+<div class="card">
+    <form method="POST" action="/add_setting">
+        <input name="mosque_name" placeholder="🏛️ اسم المسجد" required>
+        <input name="mosque_logo" placeholder="🖼️ رابط الشعار">
+        <input name="mosque_address" placeholder="📍 العنوان">
+        <input name="mosque_phone" placeholder="📞 رقم الهاتف">
+        <button type="submit">➕ إضافة إعداد</button>
+    </form>
+</div>
+
+{% for s in settings %}
+<div class="card">
+    <h2>🏛️ {{ s['mosque_name'] }}</h2>
+    <p>📍 {{ s['mosque_address'] }}</p>
+    <p>📞 {{ s['mosque_phone'] }}</p>
+
+    {% if s['mosque_logo'] %}
+        <img src="{{ s['mosque_logo'] }}" class="logo">
+    {% endif %}
+
+    <br>
+
+    <a class="edit" href="/edit_setting/{{ s['id'] }}">✏️ تعديل</a>
+    <a class="delete" href="/delete_setting/{{ s['id'] }}">🗑️ حذف</a>
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

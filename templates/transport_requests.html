@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>طلبات النقل</title>
+</head>
+<body>
+
+<h2>📍 طلبات النقل</h2>
+
+<form method="POST" action="/add_transport_request">
+
+    <select name="student_id" required>
+        <option value="">اختر الطالب</option>
+        {% for s in students %}
+        <option value="{{ s['id'] }}">{{ s['name'] }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="car_id" required>
+        <option value="">اختر السيارة</option>
+        {% for c in cars %}
+        <option value="{{ c['id'] }}">{{ c['car_name'] }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="date" name="trip_date" required>
+    <input name="pickup_location" placeholder="مكان الانطلاق" required>
+    <input name="destination" placeholder="الوجهة" required>
+
+    <button type="submit">إضافة طلب</button>
+</form>
+
+<hr>
+
+<table border="1" width="100%">
+    <tr>
+        <th>الطالب</th>
+        <th>السيارة</th>
+        <th>التاريخ</th>
+        <th>الانطلاق</th>
+        <th>الوجهة</th>
+        <th>حذف</th>
+    </tr>
+
+    {% for r in requests %}
+    <tr>
+        <td>{{ r["student_name"] }}</td>
+        <td>{{ r["car_name"] }}</td>
+        <td>{{ r["trip_date"] }}</td>
+        <td>{{ r["pickup_location"] }}</td>
+        <td>{{ r["destination"] }}</td>
+        <td><a href="/delete_transport_request/{{ r['id'] }}">حذف</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

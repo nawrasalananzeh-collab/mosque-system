@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>النسخ الاحتياطي</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #38bdf8;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-create {
+            background: #22c55e;
+            color: white;
+        }
+
+        .btn-create:hover {
+            background: #16a34a;
+        }
+
+        .btn-download {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #2563eb;
+        }
+
+        .btn-back {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h1>💾 النسخ الاحتياطي للنظام</h1>
+
+        <a class="btn btn-create" href="/backup/create">
+            🟢 إنشاء نسخة احتياطية
+        </a>
+
+        <a class="btn btn-download" href="/backup/download">
+            📥 تحميل آخر نسخة
+        </a>
+
+        <a class="btn btn-back" href="/dashboard">
+            🔙 الرجوع للوحة التحكم
+        </a>
+
+        <div class="note">
+            يتم حفظ النسخ داخل مجلد backups تلقائيًا
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

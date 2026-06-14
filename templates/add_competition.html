@@ -1,0 +1,221 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>إضافة مسابقة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cairo',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#050816;
+    overflow:hidden;
+    color:white;
+}
+
+/* الخلفية */
+.bg{
+    position:fixed;
+    inset:-20%;
+    z-index:-2;
+    background:
+        radial-gradient(circle,#2563eb 0%,transparent 25%),
+        radial-gradient(circle,#06b6d4 0%,transparent 30%),
+        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
+    background-size:40% 40%;
+    animation:bgMove 20s linear infinite;
+    filter:blur(100px);
+    opacity:.9;
+}
+
+@keyframes bgMove{
+    0%{transform:translate(-5%,-5%) rotate(0deg);}
+    50%{transform:translate(5%,5%) rotate(180deg);}
+    100%{transform:translate(-5%,-5%) rotate(360deg);}
+}
+
+/* الكرت */
+.card{
+    width:min(92%,600px);
+
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:28px;
+
+    padding:35px;
+
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+
+.title{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:25px;
+
+    background:linear-gradient(90deg,#60a5fa,#22d3ee,#3b82f6);
+    background-size:300%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* الحقول */
+input,
+textarea{
+    width:100%;
+
+    margin-bottom:15px;
+    padding:14px;
+
+    border:none;
+    outline:none;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+    color:white;
+
+    font-size:15px;
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#cbd5e1;
+}
+
+/* الأزرار */
+.actions{
+    display:flex;
+    gap:12px;
+    margin-top:10px;
+}
+
+.btn{
+    flex:1;
+
+    text-decoration:none;
+    text-align:center;
+
+    border:none;
+    cursor:pointer;
+
+    padding:14px;
+    border-radius:14px;
+
+    color:white;
+    font-weight:700;
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.save{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.back{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.15);
+}
+
+@media(max-width:600px){
+
+    .card{
+        padding:22px;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="card">
+
+    <h2 class="title">🏆 إضافة مسابقة جديدة</h2>
+
+    <form method="POST">
+
+        <input
+            name="title"
+            placeholder="اسم المسابقة"
+            required
+        >
+
+        <textarea
+            name="description"
+            placeholder="وصف المسابقة"
+            required
+        ></textarea>
+
+        <input
+            type="date"
+            name="start_date"
+            required
+        >
+
+        <input
+            type="date"
+            name="end_date"
+            required
+        >
+
+        <input
+            name="prize"
+            placeholder="الجائزة"
+            required
+        >
+
+        <div class="actions">
+
+            <button type="submit" class="btn save">
+                💾 حفظ المسابقة
+            </button>
+
+            <a href="/competitions" class="btn back">
+                ↩️ رجوع
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
+```

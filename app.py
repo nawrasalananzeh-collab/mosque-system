@@ -6,14 +6,92 @@ app.secret_key = "mosque_secret"
 
 
 # ================= DATABASE =================
+# ================= INIT DATABASE =================
 def db():
     conn = sqlite3.connect("mosque.db")
     conn.row_factory = sqlite3.Row
     return conn
-
 def init_db():
     conn = db()
 
+    # USERS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE,
+        password TEXT
+    )
+    """)
+
+    # STUDENTS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS students (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        age TEXT,
+        phone TEXT,
+        national_id TEXT,
+        sheikh_group TEXT,
+        address TEXT,
+        parent_phone TEXT,
+        image TEXT,
+        juz_count INTEGER DEFAULT 0,
+        umrah_count INTEGER DEFAULT 0,
+        umrah_dates TEXT
+    )
+    """)
+
+    # TEACHERS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS teachers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        phone TEXT,
+        age TEXT,
+        address TEXT,
+        specialization TEXT,
+        join_date TEXT,
+        students_count INTEGER DEFAULT 0,
+        status TEXT
+    )
+    """)
+
+    # SESSIONS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        session_time TEXT,
+        supervisor TEXT
+    )
+    """)
+
+    # HAFZ
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS hafaz (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT,
+        juz_count INTEGER,
+        sheikh TEXT,
+        khatma_date TEXT,
+        khatma_place TEXT
+    )
+    """)
+
+    # TESTS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS tests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student_name TEXT,
+        test_type TEXT,
+        score TEXT,
+        date TEXT,
+        notes TEXT,
+        pdf_file TEXT
+    )
+    """)
+
+    # UMRAH
     conn.execute("""
     CREATE TABLE IF NOT EXISTS umrah_memories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,14 +103,66 @@ def init_db():
     )
     """)
 
+    # COMPETITIONS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS competitions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        description TEXT,
+        start_date TEXT,
+        end_date TEXT,
+        prize TEXT,
+        status TEXT DEFAULT 'active'
+    )
+    """)
+
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS competition_participants (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        competition_id INTEGER,
+        student_id INTEGER,
+        score INTEGER DEFAULT 0,
+        rank INTEGER DEFAULT 0
+    )
+    """)
+
+    # TRANSPORT CARS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS transport_cars (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        car_name TEXT,
+        driver_name TEXT,
+        driver_phone TEXT,
+        seats INTEGER,
+        notes TEXT
+    )
+    """)
+
+    # TRANSPORT REQUESTS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS transport_requests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student_id INTEGER,
+        car_id INTEGER,
+        trip_date TEXT,
+        pickup_location TEXT,
+        destination TEXT
+    )
+    """)
+
+    # MOSQUE SETTINGS
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS mosque_settings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mosque_name TEXT,
+        mosque_logo TEXT,
+        mosque_address TEXT,
+        mosque_phone TEXT
+    )
+    """)
+
     conn.commit()
     conn.close()
-
-init_db()
-# ================= AUTH =================
-def auth():
-    return "user" in session
-
 
 # ================= LOGIN =================
 @app.route("/", methods=["GET", "POST"])
@@ -54,7 +184,7 @@ def login():
             session["user"] = user["username"]
             return redirect("/welcome")
         else:
-            error = "خطأ في البيانات"
+            error = "╪«╪╖╪ú ┘ü┘è ╪º┘ä╪¿┘è╪º┘å╪º╪¬"
 
     return render_template("login.html", error=error)
 
@@ -118,12 +248,12 @@ def add_student():
     parent_phone = request.form.get("parent_phone")
     image = request.form.get("image")
 
-    # 🔥 الأرقام (تصحيح نهائي)
+    # ≡ƒöÑ ╪º┘ä╪ú╪▒┘é╪º┘à (╪¬╪╡╪¡┘è╪¡ ┘å┘ç╪º╪ª┘è)
     juz_count = request.form.get("juz_count")
     umrah_count = request.form.get("umrah_count")
     umrah_dates = request.form.get("umrah_dates") or ""
 
-    # تحويل آمن للأرقام
+    # ╪¬╪¡┘ê┘è┘ä ╪ó┘à┘å ┘ä┘ä╪ú╪▒┘é╪º┘à
     juz_count = int(juz_count) if juz_count and juz_count.strip() != "" else 0
     umrah_count = int(umrah_count) if umrah_count and umrah_count.strip() != "" else 0
 
@@ -163,7 +293,7 @@ def add_student():
 
     return redirect("/students")
 
-# ================= ✏ EDIT STUDENT =================
+# ================= Γ£Å EDIT STUDENT =================
 @app.route("/edit_student/<int:id>", methods=["GET", "POST"])
 def edit_student(id):
     if not auth():
@@ -181,7 +311,7 @@ def edit_student(id):
         parent_phone = request.form.get("parent_phone")
         image = request.form.get("image")
 
-        # 🔥 الجديد
+        # ≡ƒöÑ ╪º┘ä╪¼╪»┘è╪»
         juz_count = request.form.get("juz_count") or 0
         umrah_count = request.form.get("umrah_count") or 0
         umrah_dates = request.form.get("umrah_dates") or ""
@@ -219,7 +349,7 @@ def edit_student(id):
         conn.close()
         return redirect("/students")
 
-    # GET request (عرض البيانات)
+    # GET request (╪╣╪▒╪╢ ╪º┘ä╪¿┘è╪º┘å╪º╪¬)
     student = conn.execute(
         "SELECT * FROM students WHERE id=?",
         (id,)
@@ -228,7 +358,7 @@ def edit_student(id):
     conn.close()
     return render_template("edit_student.html", student=student)
 
-# ================= 🗑 DELETE STUDENT =================
+# ================= ≡ƒùæ DELETE STUDENT =================
 @app.route("/delete_student/<int:id>")
 def delete_student(id):
     if not auth():
@@ -242,7 +372,7 @@ def delete_student(id):
     return redirect("/students")
 
 
-# ================= 👤 STUDENT PROFILE (NEW) =================
+# ================= ≡ƒæñ STUDENT PROFILE (NEW) =================
 @app.route("/student/<int:id>")
 def student_profile(id):
     if not auth():
@@ -270,7 +400,7 @@ def users_pin():
             session["users_pin_ok"] = True
             return redirect("/users")
         else:
-            error = "PIN خطأ"
+            error = "PIN ╪«╪╖╪ú"
 
     return render_template("users_pin.html", error=error)
 # ================= USERS =================
@@ -324,7 +454,7 @@ def delete_user(id):
 
     return redirect("/users")
 
-# ================= ✏ EDIT USER =================
+# ================= Γ£Å EDIT USER =================
 @app.route("/edit_user/<int:id>", methods=["GET", "POST"])
 def edit_user(id):
     if not auth():
@@ -373,7 +503,7 @@ def teachers():
     conn.close()
 
     return render_template("teachers.html", teachers=data)
-# ================= 👨‍🏫 TEACHER PROFILE =================
+# ================= ≡ƒæ¿ΓÇì≡ƒÅ½ TEACHER PROFILE =================
 @app.route("/teacher/<int:id>")
 def teacher_profile(id):
     if not auth():
@@ -435,7 +565,7 @@ def add_teacher():
 
 
 # ================= EDIT TEACHER =================
-# ================= ✏ EDIT TEACHER =================
+# ================= Γ£Å EDIT TEACHER =================
 @app.route("/edit_teacher/<int:id>", methods=["GET", "POST"])
 def edit_teacher(id):
     if not auth():
@@ -787,18 +917,18 @@ def edit_test(id):
 
         file = request.files.get("pdf_file")
 
-        pdf_file = test["pdf_file"]  # الافتراضي = القديم
+        pdf_file = test["pdf_file"]  # ╪º┘ä╪º┘ü╪¬╪▒╪º╪╢┘è = ╪º┘ä┘é╪»┘è┘à
 
-        # لو رفع ملف جديد
+        # ┘ä┘ê ╪▒┘ü╪╣ ┘à┘ä┘ü ╪¼╪»┘è╪»
         if file and file.filename != "":
             filename = secure_filename(file.filename)
 
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(file_path)
 
-            pdf_file = filename  # تحديث الاسم الجديد
+            pdf_file = filename  # ╪¬╪¡╪»┘è╪½ ╪º┘ä╪º╪│┘à ╪º┘ä╪¼╪»┘è╪»
 
-        # 🔥 تحديث كامل في قاعدة البيانات
+        # ≡ƒöÑ ╪¬╪¡╪»┘è╪½ ┘â╪º┘à┘ä ┘ü┘è ┘é╪º╪╣╪»╪⌐ ╪º┘ä╪¿┘è╪º┘å╪º╪¬
         conn.execute("""
             UPDATE tests
             SET student_name=?,
@@ -1006,6 +1136,448 @@ def delete_khatma(id):
     return redirect("/khatmat")
 
 
+# ================= COMPETITIONS =================
+@app.route("/competitions")
+def competitions():
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+    data = conn.execute("SELECT * FROM competitions ORDER BY id DESC").fetchall()
+    conn.close()
+
+    return render_template("competitions.html", competitions=data)
+
+
+@app.route("/add_competition", methods=["GET", "POST"])
+def add_competition():
+    if not auth():
+        return redirect("/")
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        description = request.form.get("description")
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+        prize = request.form.get("prize")
+
+        conn = db()
+        conn.execute("""
+            INSERT INTO competitions (title, description, start_date, end_date, prize)
+            VALUES (?, ?, ?, ?, ?)
+        """, (title, description, start_date, end_date, prize))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/competitions")
+
+    return render_template("add_competition.html")
+
+
+@app.route("/competition/<int:id>")
+def competition_profile(id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+
+    competition = conn.execute(
+        "SELECT * FROM competitions WHERE id=?",
+        (id,)
+    ).fetchone()
+
+    students = conn.execute(
+        "SELECT * FROM students"
+    ).fetchall()
+
+    participants = conn.execute("""
+        SELECT *
+        FROM competition_participants
+        WHERE competition_id=?
+        ORDER BY score DESC
+    """, (id,)).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "competition_profile.html",
+        competition=competition,
+        students=students,
+        participants=participants
+    )
+
+
+@app.route("/add_participant/<int:competition_id>", methods=["POST"])
+def add_participant(competition_id):
+    if not auth():
+        return redirect("/")
+
+    student_id = request.form.get("student_id")
+
+    conn = db()
+
+    student = conn.execute(
+        "SELECT name FROM students WHERE id=?",
+        (student_id,)
+    ).fetchone()
+
+    if student:
+        conn.execute("""
+            INSERT INTO competition_participants
+            (competition_id, student_name, score)
+            VALUES (?, ?, 0)
+        """, (competition_id, student["name"]))
+
+    conn.commit()
+    conn.close()
+
+    return redirect(f"/competition/{competition_id}")
+
+
+@app.route("/update_score/<int:participant_id>/<int:competition_id>", methods=["POST"])
+def update_score(participant_id, competition_id):
+    if not auth():
+        return redirect("/")
+
+    score = request.form.get("score")
+
+    conn = db()
+
+    conn.execute("""
+        UPDATE competition_participants
+        SET score=?
+        WHERE id=?
+    """, (score, participant_id))
+
+    conn.commit()
+    conn.close()
+
+    return redirect(f"/competition/{competition_id}")
+@app.route("/delete_participant/<int:participant_id>/<int:competition_id>")
+def delete_participant(participant_id, competition_id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+    conn.execute("DELETE FROM competition_participants WHERE id=?", (participant_id,))
+    conn.commit()
+    conn.close()
+
+    return redirect(f"/competition/{competition_id}")
+
+
+@app.route("/delete_competition/<int:id>")
+def delete_competition(id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+    conn.execute("DELETE FROM competitions WHERE id=?", (id,))
+    conn.execute("DELETE FROM competition_participants WHERE competition_id=?", (id,))
+    conn.commit()
+    conn.close()
+
+    return redirect("/competitions")
+
+@app.route("/edit_competition/<int:id>", methods=["GET", "POST"])
+def edit_competition(id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+
+    comp = conn.execute(
+        "SELECT * FROM competitions WHERE id=?",
+        (id,)
+    ).fetchone()
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        description = request.form.get("description")
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+        prize = request.form.get("prize")
+
+        conn.execute("""
+            UPDATE competitions
+            SET title=?, description=?, start_date=?, end_date=?, prize=?
+            WHERE id=?
+        """, (title, description, start_date, end_date, prize, id))
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/competitions")
+
+    conn.close()
+    return render_template("edit_competition.html", competition=comp)
+
+
+
+@app.route("/transport_cars")
+def transport_cars():
+    conn = db()
+    cars = conn.execute("SELECT * FROM transport_cars").fetchall()
+    conn.close()
+    return render_template("transport_cars.html", cars=cars)
+
+
+@app.route("/add_transport_car", methods=["POST"])
+def add_transport_car():
+    conn = db()
+
+    conn.execute("""
+        INSERT INTO transport_cars (car_name, driver_name, driver_phone, seats, notes)
+        VALUES (?, ?, ?, ?, ?)
+    """, (
+        request.form["car_name"],
+        request.form["driver_name"],
+        request.form["driver_phone"],
+        request.form["seats"],
+        request.form["notes"]
+    ))
+
+    conn.commit()
+    conn.close()
+    return redirect("/transport_cars")
+
+
+@app.route("/delete_transport_car/<int:car_id>")
+def delete_transport_car(car_id):
+    conn = db()
+    conn.execute("DELETE FROM transport_cars WHERE id = ?", (car_id,))
+    conn.commit()
+    conn.close()
+    return redirect("/transport_cars")
+
+
+
+@app.route("/add_transport_request", methods=["POST"])
+def add_transport_request():
+    conn = db()
+
+    conn.execute("""
+        INSERT INTO transport_requests (student_id, car_id, trip_date, pickup_location, destination)
+        VALUES (?, ?, ?, ?, ?)
+    """, (
+        request.form["student_id"],
+        request.form["car_id"],
+        request.form["trip_date"],
+        request.form["pickup_location"],
+        request.form["destination"]
+    ))
+
+    conn.commit()
+    conn.close()
+    return redirect("/transport_requests")
+
+@app.route("/transport_requests")
+def transport_requests():
+    conn = db()
+
+    requests = conn.execute("""
+        SELECT tr.*, s.name as student_name, c.car_name
+        FROM transport_requests tr
+        LEFT JOIN students s ON tr.student_id = s.id
+        LEFT JOIN transport_cars c ON tr.car_id = c.id
+    """).fetchall()
+
+    students = conn.execute("SELECT id, name FROM students").fetchall()
+    cars = conn.execute("SELECT id, car_name FROM transport_cars").fetchall()
+
+    conn.close()
+
+    return render_template(
+        "transport_requests.html",
+        requests=requests,
+        students=students,
+        cars=cars
+    )
+@app.route("/delete_transport_request/<int:req_id>")
+def delete_transport_request(req_id):
+    conn = db()
+    conn.execute("DELETE FROM transport_requests WHERE id = ?", (req_id,))
+    conn.commit()
+    conn.close()
+    return redirect("/transport_requests")
+
+
+
+@app.route("/institute")
+def institute():
+    if not auth():
+        return redirect("/")
+    return render_template("institute.html")
+
+import os
+import shutil
+from datetime import datetime
+from flask import render_template, send_file
+
+# ================= BACKUP CONFIG =================
+# ================= BACKUP CONFIG =================
+import os
+import shutil
+from datetime import datetime
+from flask import render_template, send_file, session
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "mosque.db")
+BACKUP_FOLDER = os.path.join(BASE_DIR, "backups")
+
+
+# ================= BACKUP CREATE =================
+@app.route("/backup/create")
+def create_backup():
+
+    # تأكد أن المستخدم مسموح
+    if not auth():
+        return redirect("/")
+
+    # تأكد أن backups ليس ملف بل مجلد
+    if os.path.exists(BACKUP_FOLDER) and not os.path.isdir(BACKUP_FOLDER):
+        return "❌ يوجد ملف باسم backups، احذفه وأنشئ مجلد بدلًا منه"
+
+    # إنشاء المجلد إذا غير موجود
+    os.makedirs(BACKUP_FOLDER, exist_ok=True)
+
+    # تأكد من وجود قاعدة البيانات
+    if not os.path.isfile(DB_PATH):
+        return f"❌ قاعدة البيانات غير موجودة: {DB_PATH}"
+
+    # اسم النسخة
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    backup_path = os.path.join(
+        BACKUP_FOLDER,
+        f"mosque_backup_{timestamp}.db"
+    )
+
+    try:
+        shutil.copy2(DB_PATH, backup_path)
+        return f"✅ تم إنشاء النسخة: {backup_path}"
+    except Exception as e:
+        return f"❌ خطأ: {str(e)}"
+
+
+# ================= BACKUP DOWNLOAD (LATEST) =================
+@app.route("/backup/download")
+def download_backup():
+
+    if not auth():
+        return redirect("/")
+
+    if not os.path.exists(BACKUP_FOLDER):
+        return "No backups found"
+
+    files = sorted(
+        [f for f in os.listdir(BACKUP_FOLDER) if f.endswith(".db")],
+        reverse=True
+    )
+
+    if not files:
+        return "No backups found"
+
+    latest_backup = os.path.join(BACKUP_FOLDER, files[0])
+
+    return send_file(latest_backup, as_attachment=True)
+
+
+# ================= BACKUP PAGE =================
+@app.route("/backup")
+def backup_page():
+
+    if not auth():
+        return redirect("/")
+
+    return render_template("backup.html")
+
+# ================= AUTH =================
+def auth():
+    return "user" in session
+
+@app.route("/settings")
+def settings():
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+    data = conn.execute("SELECT * FROM mosque_settings ORDER BY id DESC").fetchall()
+    conn.close()
+
+    return render_template("settings.html", settings=data)
+
+
+@app.route("/add_setting", methods=["POST"])
+def add_setting():
+    if not auth():
+        return redirect("/")
+
+    mosque_name = request.form.get("mosque_name")
+    mosque_logo = request.form.get("mosque_logo")
+    mosque_address = request.form.get("mosque_address")
+    mosque_phone = request.form.get("mosque_phone")
+
+    conn = db()
+    conn.execute("""
+        INSERT INTO mosque_settings (mosque_name, mosque_logo, mosque_address, mosque_phone)
+        VALUES (?, ?, ?, ?)
+    """, (mosque_name, mosque_logo, mosque_address, mosque_phone))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/settings")
+
+
+@app.route("/delete_setting/<int:id>")
+def delete_setting(id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+    conn.execute("DELETE FROM mosque_settings WHERE id=?", (id,))
+    conn.commit()
+    conn.close()
+
+    return redirect("/settings")
+
+
+@app.route("/edit_setting/<int:id>", methods=["GET", "POST"])
+def edit_setting(id):
+    if not auth():
+        return redirect("/")
+
+    conn = db()
+
+    if request.method == "POST":
+        mosque_name = request.form.get("mosque_name")
+        mosque_logo = request.form.get("mosque_logo")
+        mosque_address = request.form.get("mosque_address")
+        mosque_phone = request.form.get("mosque_phone")
+
+        conn.execute("""
+            UPDATE mosque_settings
+            SET mosque_name=?,
+                mosque_logo=?,
+                mosque_address=?,
+                mosque_phone=?
+            WHERE id=?
+        """, (mosque_name, mosque_logo, mosque_address, mosque_phone, id))
+
+        conn.commit()
+        conn.close()
+        return redirect("/settings")
+
+    data = conn.execute(
+        "SELECT * FROM mosque_settings WHERE id=?",
+        (id,)
+    ).fetchone()
+
+    conn.close()
+
+    return render_template("edit_setting.html", setting=data)
 # ================= RUN =================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    init_db()
+    app.run(debug=True)

@@ -4,10 +4,10 @@ conn = sqlite3.connect("mosque.db")
 
 conn.execute("""
 INSERT INTO users (username, password)
-VALUES (?, ?)
-""", ("admin", "1234"))
+VALUES ('admin', '123456')
+""")
 
 conn.commit()
 conn.close()
 
-print("Admin created ✔ username: admin / password: 1234")
+print("ADMIN CREATED ✔️")
