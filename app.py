@@ -1578,6 +1578,7 @@ def edit_setting(id):
 
     return render_template("edit_setting.html", setting=data)
 # ================= RUN =================
+import os
+
 if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
