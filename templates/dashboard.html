@@ -18,112 +18,79 @@
 
 body{
     min-height:100vh;
+    overflow:hidden;
     color:white;
-    overflow-x:hidden;
     position:relative;
-    background:#050816;
-}
 
-/* خلفية الترحيب */
-.bg{
-    position:fixed;
-    inset:-20%;
-    z-index:-2;
-
+    /* 🔥 نفس خلفية تسجيل الدخول */
     background:
-        radial-gradient(circle,#2563eb 0%,transparent 25%),
-        radial-gradient(circle,#06b6d4 0%,transparent 30%),
-        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
-
-    background-size:40% 40%;
-    animation:bgMove 20s linear infinite;
-
-    filter:blur(100px);
-    opacity:.9;
+    linear-gradient(rgba(5,8,12,.78), rgba(5,8,12,.78)),
+    url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
 }
 
-@keyframes bgMove{
-    0%{
-        transform:translate(-5%,-5%) rotate(0deg);
-    }
-    50%{
-        transform:translate(5%,5%) rotate(180deg);
-    }
-    100%{
-        transform:translate(-5%,-5%) rotate(360deg);
-    }
-}
-
-body::before,
+/* glow يمين */
 body::after{
     content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(80px);
-    z-index:-1;
+    position:absolute;
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle,#22c55e30,#00000000 65%);
+    top:-300px;
+    right:-300px;
+    filter:blur(90px);
+    z-index:0;
 }
 
+/* glow يسار */
 body::before{
-    background:#2563eb;
-    top:-150px;
-    right:-150px;
-    animation:orb1 12s ease-in-out infinite;
+    content:"";
+    position:absolute;
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle,#3b82f630,#00000000 65%);
+    bottom:-350px;
+    left:-300px;
+    filter:blur(100px);
+    z-index:0;
 }
 
-body::after{
-    background:#06b6d4;
-    bottom:-150px;
-    left:-150px;
-    animation:orb2 14s ease-in-out infinite;
-}
-
-@keyframes orb1{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-150px,120px);}
-}
-
-@keyframes orb2{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(150px,-120px);}
-}
-
-/* العنوان */
+/* header */
 .header{
     width:fit-content;
-    margin:20px auto;
+    margin:18px auto;
 
-    padding:14px 35px;
+    padding:12px 28px;
 
-    font-size:30px;
-    font-weight:800;
+    font-size:26px;
+    font-weight:900;
 
     border-radius:18px;
 
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(25px);
+    background:rgba(15,20,28,.55);
+    backdrop-filter:blur(22px);
 
     border:1px solid rgba(255,255,255,.12);
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.35);
-
-    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
 
     position:relative;
-    z-index:10;
+    z-index:2;
 }
 
-/* Layout */
+/* layout */
 .container{
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
+    align-items:stretch;
     padding:25px;
     gap:20px;
+    position:relative;
+    z-index:2;
 }
 
+/* columns */
 .column{
     width:320px;
     display:flex;
@@ -131,34 +98,30 @@ body::after{
     gap:10px;
 }
 
+/* buttons */
 .btn{
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-
     padding:12px 14px;
-    min-height:44px;
+    border-radius:14px;
 
     text-decoration:none;
     color:white;
 
     font-size:15px;
-    font-weight:700;
+    font-weight:800;
 
-    border-radius:14px;
-
-    background:rgba(255,255,255,.07);
+    background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.12);
 
-    transition:.25s ease;
+    transition:.25s;
 }
 
 .btn:hover{
     transform:translateY(-3px);
     background:rgba(255,255,255,.12);
-    border-color:rgba(59,130,246,.5);
+    border-color:#22c55e55;
 }
 
+/* center card */
 .center{
     flex:1;
     display:flex;
@@ -168,91 +131,68 @@ body::after{
 
 .welcome-box{
     width:100%;
-    max-width:700px;
-    text-align:center;
+    max-width:650px;
 
     padding:50px 40px;
+    text-align:center;
 
+    background:rgba(15,20,28,.55);
+    backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.12);
     border-radius:26px;
 
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(28px);
+    box-shadow:0 30px 90px rgba(0,0,0,.6);
 
-    border:1px solid rgba(255,255,255,.14);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.55),
-        0 0 25px rgba(59,130,246,.12),
-        inset 0 1px 0 rgba(255,255,255,.08);
-
-    animation:floatBox 6s ease-in-out infinite;
-    transition:.4s;
+    animation:float 6s ease-in-out infinite;
 }
 
-@keyframes floatBox{
+@keyframes float{
     0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-8px);}
-}
-
-.welcome-box:hover{
-    transform:translateY(-8px) scale(1.02);
+    50%{transform:translateY(-10px);}
 }
 
 .welcome-box h2{
-    font-size:38px;
+    font-size:34px;
     margin-bottom:12px;
 }
 
 .welcome-box p{
-    font-size:20px;
-    color:#dbeafe;
+    font-size:18px;
+    color:#cbd5e1;
 }
 
+/* responsive */
 @media(max-width:900px){
-
     .container{
         flex-direction:column;
         align-items:center;
-        padding:15px;
     }
 
     .column{
         width:100%;
         max-width:600px;
-
         display:grid;
         grid-template-columns:repeat(2,1fr);
-        gap:10px;
     }
 
     .btn{
+        text-align:center;
         justify-content:center;
-        font-size:14px;
-        padding:12px;
-    }
-
-    .welcome-box{
-        padding:28px 18px;
-        border-radius:18px;
-    }
-
-    .welcome-box h2{
-        font-size:26px;
-    }
-
-    .welcome-box p{
-        font-size:16px;
     }
 }
 
 @media(max-width:500px){
-
     .column{
         grid-template-columns:1fr;
     }
 
+    .welcome-box{
+        padding:25px;
+    }
+
     .welcome-box h2{
-        font-size:20px;
+        font-size:22px;
     }
 
     .welcome-box p{
@@ -265,12 +205,11 @@ body::after{
 
 <body>
 
-<div class="bg"></div>
-
 <div class="header">🕌 الواجهة الرئيسية</div>
 
 <div class="container">
 
+    <!-- يسار -->
     <div class="column">
         <a href="/students" class="btn">👨‍🎓 الطلاب</a>
         <a href="/users_pin" class="btn">👤 المستخدمون</a>
@@ -281,18 +220,20 @@ body::after{
         <a href="/tests" class="btn">📝 الاختبارات</a>
     </div>
 
+    <!-- وسط -->
     <div class="center">
         <div class="welcome-box">
             <h2>👋 أهلاً بك {{ username }}</h2>
-            <p>في نظام إدارة المعلوات لمسجد سعد بن معاذ</p>
+            <p>نظام إدارة المسجد - لوحة التحكم الرئيسية</p>
         </div>
     </div>
 
+    <!-- يمين -->
     <div class="column">
-<a href="/competitions" class="btn">🏆 المسابقات</a>
-        <a href="/transport_cars" class="btn">🚐 نظام سيارات التوصيل</a>
+        <a href="/competitions" class="btn">🏆 المسابقات</a>
+        <a href="/transport_cars" class="btn">🚐 التوصيل</a>
         <a href="/institute" class="btn">🏫 المعهد</a>
-        <a href="/backup" class="btn btn-primary">النسخ الاحتياطي</a>
+        <a href="/backup" class="btn">💾 النسخ الاحتياطي</a>
         <a href="/umrah" class="btn">🕋 العمرات</a>
         <a href="/settings" class="btn">⚙️ الإعدادات</a>
         <a href="/logout" class="btn">🚪 تسجيل الخروج</a>

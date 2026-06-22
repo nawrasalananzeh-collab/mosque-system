@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* RESET */
 *{
     margin:0;
     padding:0;
@@ -19,142 +18,133 @@
 
 body{
     min-height:100vh;
-    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#050816;
-    color:white;
     position:relative;
-}
+    overflow:hidden;
 
-/* 🌌 خلفية احترافية (نفس نظام المعلمين) */
-.bg{
-    position:fixed;
-    inset:-20%;
-    z-index:-2;
+    /* 🔥 نفس الخلفية تماماً */
     background:
-        radial-gradient(circle,#2563eb 0%,transparent 25%),
-        radial-gradient(circle,#06b6d4 0%,transparent 30%),
-        radial-gradient(circle,#1d4ed8 0%,transparent 25%);
-    background-size:40% 40%;
-    animation:bgMove 20s linear infinite;
-    filter:blur(100px);
-    opacity:.9;
+    linear-gradient(rgba(5,8,12,.75), rgba(5,8,12,.75)),
+    url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
 }
 
-@keyframes bgMove{
-    0%{transform:translate(-5%,-5%) rotate(0deg);}
-    50%{transform:translate(5%,5%) rotate(180deg);}
-    100%{transform:translate(-5%,-5%) rotate(360deg);}
-}
-
-/* كرات ضوئية */
-body::before,
+/* glow يمين */
 body::after{
     content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(80px);
-    z-index:-1;
-}
-
-body::before{
-    background:#2563eb;
-    top:-150px;
-    right:-150px;
-    animation:orb1 12s ease-in-out infinite;
-}
-
-body::after{
-    background:#06b6d4;
-    bottom:-150px;
-    left:-150px;
-    animation:orb2 14s ease-in-out infinite;
-}
-
-@keyframes orb1{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(-150px,120px);}
-}
-
-@keyframes orb2{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(150px,-120px);}
-}
-
-/* 🔥 العنوان العلوي */
-.top-title{
     position:absolute;
-    top:22px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:clamp(22px,3vw,34px);
-    font-weight:800;
-
-    background:linear-gradient(90deg,#60a5fa,#22d3ee,#3b82f6,#60a5fa);
-    background-size:300% 100%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-
-    animation:shine 4s linear infinite;
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle,#22c55e30,#00000000 65%);
+    top:-300px;
+    right:-300px;
+    filter:blur(90px);
+    z-index:0;
 }
 
-@keyframes shine{
-    0%{background-position:0%;}
-    100%{background-position:300%;}
+/* glow يسار */
+.bg-glow{
+    position:absolute;
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle,#3b82f630,#00000000 65%);
+    bottom:-350px;
+    left:-300px;
+    filter:blur(100px);
+    z-index:0;
 }
 
-/* 🧊 الكرت */
-.card{
+/* container */
+.container{
+    width:100%;
+    max-width:900px;
+    padding:20px;
+    z-index:10;
     position:relative;
-    z-index:2;
-    width:min(92%,520px);
-    padding:40px;
-    border-radius:26px;
+}
 
-    background:rgba(255,255,255,0.06);
-    backdrop-filter:blur(25px);
+/* الصندوق الرئيسي */
+.login-box{
+    display:flex;
+    flex-direction:row;
+    background: rgba(15, 20, 28, .55);
+    backdrop-filter: blur(22px);
+    border-radius: 28px;
+    overflow:hidden;
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
+    border: 1px solid rgba(255,255,255,.12);
+}
 
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 30px 80px rgba(0,0,0,0.6);
-
+/* اليسار (نفس login) */
+.header{
+    width:40%;
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    padding:40px 20px;
     text-align:center;
-
-    animation:float 6s ease-in-out infinite;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
+.logo{
+    width:90px;
+    height:90px;
+    background:rgba(255,255,255,.18);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:44px;
+    margin-bottom:12px;
 }
 
-/* 👋 */
-.wave{
-    font-size:48px;
-    animation:wave 1.5s infinite;
+.header h1{
+    font-size:22px;
+    font-weight:800;
 }
 
-@keyframes wave{
-    0%{transform:rotate(0);}
-    25%{transform:rotate(20deg);}
-    50%{transform:rotate(-15deg);}
-    75%{transform:rotate(20deg);}
-    100%{transform:rotate(0);}
+.header p{
+    font-size:13px;
+    opacity:.95;
 }
 
-/* النصوص */
+/* اليمين */
+.form-area{
+    width:60%;
+    padding:35px;
+    background:rgba(15,20,28,.35);
+}
+
+/* welcome box */
+.welcome-box{
+    background:linear-gradient(135deg,#f59e0b,#facc15);
+    color:white;
+    padding:10px;
+    border-radius:12px;
+    text-align:center;
+    margin-bottom:18px;
+    font-weight:800;
+    font-size:13px;
+}
+
+/* النص */
 h1{
-    font-size:28px;
+    color:white;
+    font-size:24px;
     margin-top:10px;
+    text-align:center;
 }
 
 p{
-    margin-top:10px;
     color:#cbd5e1;
-    font-size:16px;
+    font-size:14px;
+    text-align:center;
+    margin-top:10px;
 }
 
 /* الأزرار */
@@ -166,50 +156,65 @@ p{
     flex-wrap:wrap;
 }
 
-.btn{
+a.btn{
     padding:12px 18px;
-    border-radius:14px;
+    border-radius:10px;
     text-decoration:none;
-    font-weight:700;
-    transition:0.3s;
-    display:inline-block;
+    font-weight:900;
+    transition:.2s;
+    text-align:center;
 }
 
-/* دخول */
+/* زر الدخول */
 .enter{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    background:linear-gradient(135deg,#22c55e,#16a34a);
     color:white;
 }
 
-.enter:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(37,99,235,0.4);
-}
-
-/* رجوع */
+/* زر رجوع */
 .back{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.15);
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
     color:white;
 }
 
+.enter:hover,
 .back:hover{
-    transform:translateY(-3px);
-    background:rgba(255,255,255,0.15);
+    transform:translateY(-2px);
 }
 
-/* 📱 موبايل */
-@media(max-width:600px){
-    .card{
-        padding:25px;
+/* features نفس login */
+.features{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.feature{
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    font-size:13px;
+    font-weight:900;
+    color:white;
+}
+
+.f1{background:linear-gradient(135deg,#22c55e,#16a34a);}
+.f2{background:linear-gradient(135deg,#3b82f6,#2563eb);}
+.f3{background:linear-gradient(135deg,#f59e0b,#ea580c);}
+.f4{background:linear-gradient(135deg,#ef4444,#dc2626);}
+
+/* responsive */
+@media(max-width:800px){
+    .login-box{
+        flex-direction:column;
     }
 
-    h1{font-size:22px;}
-    p{font-size:14px;}
-
-    .btn{
+    .header,.form-area{
         width:100%;
-        text-align:center;
     }
 }
 
@@ -218,21 +223,44 @@ p{
 
 <body>
 
-<div class="bg"></div>
+<div class="bg-glow"></div>
 
-<div class="top-title">يا أهلاً ويا سهلاً</div>
+<div class="container">
 
-<div class="card">
+<div class="login-box">
 
-    <div class="wave">👋</div>
-
-    <h1>مرحباً بك {{ username }}</h1>
-    <p>في نظام إدارة المعلوات لمسجد سعد بن معاذ</p>
-
-    <div class="buttons">
-        <a href="/dashboard" class="btn enter">تفضل بالدخول الى النظام </a>
-        <a href="/" class="btn back">العودة لتسجيل الدخول</a>
+    <!-- يسار نفس login -->
+    <div class="header">
+        <div class="logo">🕌</div>
+        <h1>نظام إدارة المسجد</h1>
+        <p>إدارة الطلاب والمعهد والاختبارات</p>
     </div>
+
+    <!-- يمين -->
+    <div class="form-area">
+
+        <div class="welcome-box">
+            تم تسجيل الدخول بنجاح
+        </div>
+
+        <h1>مرحباً {{ username }}</h1>
+        <p>أهلاً بك في النظام الإداري للمسجد</p>
+
+        <div class="buttons">
+            <a href="/dashboard" class="btn enter">الدخول للنظام</a>
+            <a href="/" class="btn back">تسجيل خروج</a>
+        </div>
+
+        <div class="features">
+            <div class="feature f1">الطلاب</div>
+            <div class="feature f2">المعهد</div>
+            <div class="feature f3">الاختبارات</div>
+            <div class="feature f4">التقارير</div>
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 
